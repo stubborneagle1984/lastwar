@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calcolatrice Scientifica</title>
+    <title>Calcoli Boost</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,6 +20,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
         }
         h1 {
             text-align: center;
@@ -30,15 +31,24 @@
             flex-direction: column;
             margin-bottom: 15px;
         }
+        .inline-group {
+            display: flex;
+            align-items: center;
+        }
         label {
-            margin-bottom: 5px;
             font-weight: bold;
+        }
+        .inline-group label {
+            margin-right: 10px;
+            white-space: nowrap;
         }
         input[type="number"] {
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
+            width: 60px;
+            margin-right: 10px;
         }
         input[type="checkbox"] {
             margin-top: 10px;
@@ -51,6 +61,7 @@
             color: #fff;
             font-size: 16px;
             cursor: pointer;
+            width: 100%;
         }
         button:hover {
             background-color: #0056b3;
@@ -65,28 +76,19 @@
 </head>
 <body>
     <div class="container">
-        <h1>Calcolatrice Scientifica</h1>
+        <h1>Calcoli Boost</h1>
         <div class="form-group">
             <label for="ministro">Ministro:</label>
             <input type="checkbox" id="ministro">
         </div>
-        <div class="form-group">
-            <label for="dIniz">Giorni iniziali:</label>
-            <input type="number" id="dIniz" value="1" min="0" max="31">
+        <div class="form-group inline-group">
+            <label for="dIniz">Orario originale:</label>
+            <input type="number" id="dIniz" value="1" min="0" max="31" placeholder="G">
+            <input type="number" id="hIniz" value="5" min="0" max="23" placeholder="H">
+            <input type="number" id="mIniz" value="30" min="0" max="59" placeholder="M">
+            <input type="number" id="sIniz" value="0" min="0" max="59" placeholder="S">
         </div>
-        <div class="form-group">
-            <label for="hIniz">Ore iniziali:</label>
-            <input type="number" id="hIniz" value="5" min="0" max="23">
-        </div>
-        <div class="form-group">
-            <label for="mIniz">Minuti iniziali:</label>
-            <input type="number" id="mIniz" value="30" min="0" max="59">
-        </div>
-        <div class="form-group">
-            <label for="sIniz">Secondi iniziali:</label>
-            <input type="number" id="sIniz" value="0" min="0" max="59">
-        </div>
-        <button onclick="runCalculation()">Calcola</button>
+        <button onclick="runCalculation()">Calcola orario con boost</button>
         <p id="result"></p>
     </div>
 
@@ -121,7 +123,7 @@
                 `${hFin}h`,
                 `${mFin}m`,
                 `${sFin}s`,
-                `velocità: ${(vTot - 100 + 0.00000001).toFixed(8)}`
+                `velocità: ${(vTot - 100).toFixed(2)}`
             ];
         }
 
@@ -133,7 +135,7 @@
             let sIniz = parseInt(document.getElementById('sIniz').value);
 
             let result = calculateTime(ministroEnabled, dIniz, hIniz, mIniz, sIniz);
-            document.getElementById('result').textContent = `Risultato: ${result.join(', ')}`;
+            document.getElementById('result').textContent = `Nuovo orario: ${result.slice(0, 4).join(', ')} (${result[4]})`;
         }
     </script>
 </body>
