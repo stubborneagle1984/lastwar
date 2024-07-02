@@ -21,6 +21,7 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 300px;
+            margin-bottom: 20px;
         }
         h1 {
             text-align: center;
@@ -29,29 +30,24 @@
         .form-group {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         .form-group label {
             margin-right: 10px;
+            flex: 1;
         }
-        .inline-group {
-            display: flex;
-            align-items: center;
-        }
-        .inline-group label {
-            margin-right: 10px;
-        }
-        .inline-group input[type="number"] {
-            padding: 10px;
+        .form-group input[type="number"] {
+            padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 16px;
+            font-size: 14px;
             width: 60px;
-            margin-right: 10px;
         }
-        input[type="checkbox"] {
-            margin-top: 10px;
-            margin-left: 5px;
+        .boost-section {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
         }
         button {
             padding: 10px 20px;
@@ -77,6 +73,30 @@
 </head>
 <body>
     <div class="container">
+        <div class="boost-section">
+            <h2>Parametri di ingresso</h2>
+            <div class="form-group">
+                <label for="V">Boost da edificio (V):</label>
+                <input type="number" id="V" value="9" min="0">
+            </div>
+            <div class="form-group">
+                <label for="S">Boost sopravvissuti (S):</label>
+                <input type="number" id="S" value="69" min="0">
+            </div>
+            <div class="form-group">
+                <label for="R">Boost tecnologia (R):</label>
+                <input type="number" id="R" value="28" min="0">
+            </div>
+            <div class="form-group">
+                <label for="Vip">VIP (Vip):</label>
+                <input type="number" id="Vip" value="5" min="0">
+            </div>
+            <div class="form-group">
+                <label for="Ra">Tecnologia dell'alleanza (Ra):</label>
+                <input type="number" id="Ra" value="5" min="0">
+            </div>
+        </div>
+        
         <h1>Calcoli Boost</h1>
         <div class="form-group">
             <label for="ministro">Boost ministero delle scienze:</label>
@@ -97,12 +117,13 @@
 
     <script>
         function calculateTime(ministroEnabled, dIniz, hIniz, mIniz, sIniz) {
-            let V = 9; // Boost da edificio
-            let S = 25 + 16 + 16 + 12; // Boost da sopravv.
-            let R = 10 + 10 + 4 + 4; // Boost tecnologia
-            let Vip = 5; // VIP
-            let Ra = 5; // Tecn. dell'alleanza
-            let Ministro = ministroEnabled ? 50 : 0; // ministero scienza attivo/disattivo
+            let V = parseInt(document.getElementById('V').value);
+            let S = parseInt(document.getElementById('S').value);
+            let R = parseInt(document.getElementById('R').value);
+            let Vip = parseInt(document.getElementById('Vip').value);
+            let Ra = parseInt(document.getElementById('Ra').value);
+            
+            let Ministro = ministroEnabled ? 50 : 0; // Boost ministero delle scienze
 
             let vTot = 100 + V + S + R + Vip + Ra + Ministro;
 
