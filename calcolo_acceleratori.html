@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolatrice Ministeriale</title>
+</head>
+<body>
+    <div>
+        <label for="ministro">Ministro:</label>
+        <input type="number" id="ministro" value="50">
+    </div>
+    <div>
+        <label for="dIniz">Giorni iniziali:</label>
+        <input type="number" id="dIniz" value="1">
+    </div>
+    <div>
+        <label for="hIniz">Ore iniziali:</label>
+        <input type="number" id="hIniz" value="14">
+    </div>
+    <div>
+        <label for="mIniz">Minuti iniziali:</label>
+        <input type="number" id="mIniz" value="18">
+    </div>
+    <div>
+        <label for="sIniz">Secondi iniziali:</label>
+        <input type="number" id="sIniz" value="13">
+    </div>
+    <button onclick="runCalculation()">Calcola</button>
+
+    <p id="result"></p>
+
+    <script>
+        function calculateTime(ministro, dIniz, hIniz, mIniz, sIniz) {
+            let vTot = 100 + ministro;
+
+            let mTmp = (dIniz * 24 * 60) + (hIniz * 60) + mIniz + (sIniz / 60);
+            let mTmp2 = mTmp * 100 / vTot;
+
+            let dTot = mTmp2 / 60 / 24;
+            let dFin = Math.floor(dTot);
+
+            let hTot = mTmp2 / 60;
+            let hFin = Math.floor(hTot) - dFin * 24;
+
+            let mTot = mTmp2;
+            let mFin = Math.floor(mTot) - dFin * 24 * 60 - hFin * 60;
+
+            let sTot = mTmp2 * 60;
+            let sFin = Math.floor(sTot) - dFin * 24 * 60 * 60 - hFin * 60 * 60 - mFin * 60;
+
+            return [dFin, hFin, mFin, sFin];
+        }
+
+        function runCalculation() {
+            let ministro = parseInt(document.getElementById('ministro').value);
+            let dIniz = parseInt(document.getElementById('dIniz').value);
+            let hIniz = parseInt(document.getElementById('hIniz').value);
+            let mIniz = parseInt(document.getElementById('mIniz').value);
+            let sIniz = parseInt(document.getElementById('sIniz').value);
+
+            let result = calculateTime(ministro, dIniz, hIniz, mIniz, sIniz);
+            document.getElementById('result').textContent = `Risultato: ${result.join(', ')}`;
+        }
+    </script>
+</body>
+</html>
