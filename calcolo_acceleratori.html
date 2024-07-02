@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calcoli Boost</title>
+    <title>Applica i boost</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -34,14 +34,31 @@
         }
         .form-group label {
             margin-right: 10px;
-            flex: 1;
         }
-        .form-group input[type="number"] {
+        .form-group input[type="number"], .form-group input[type="checkbox"] {
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 14px;
             width: 60px;
+            margin-right: 5px;
+        }
+        .inline-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .inline-group label {
+            width: 100px; /* Larghezza della label */
+            text-align: right;
+            margin-right: 10px;
+        }
+        .inline-group .input-group {
+            display: flex;
+            align-items: center;
+        }
+        .inline-group .input-group input[type="number"] {
+            margin-right: 5px;
         }
         .boost-section {
             background-color: #f0f0f0;
@@ -74,44 +91,46 @@
 <body>
     <div class="container">
         <div class="boost-section">
-            <h2>Parametri di ingresso</h2>
+            <h2>Boost della velocità nella ricerca tecnologica</h2>
             <div class="form-group">
-                <label for="V">Boost da edificio (V):</label>
+                <label for="V">Boost da edificio:</label>
                 <input type="number" id="V" value="9" min="0">
             </div>
             <div class="form-group">
-                <label for="S">Boost sopravvissuti (S):</label>
+                <label for="S">Boost sopravvissuti:</label>
                 <input type="number" id="S" value="69" min="0">
             </div>
             <div class="form-group">
-                <label for="R">Boost tecnologia (R):</label>
+                <label for="R">Boost tecnologia:</label>
                 <input type="number" id="R" value="28" min="0">
             </div>
             <div class="form-group">
-                <label for="Vip">VIP (Vip):</label>
+                <label for="Vip">VIP:</label>
                 <input type="number" id="Vip" value="5" min="0">
             </div>
             <div class="form-group">
-                <label for="Ra">Tecnologia dell'alleanza (Ra):</label>
+                <label for="Ra">Tecnologia dell'alleanza:</label>
                 <input type="number" id="Ra" value="5" min="0">
             </div>
         </div>
         
-        <h1>Calcoli Boost</h1>
-        <div class="form-group">
-            <label for="ministro">Boost ministero delle scienze:</label>
-            <input type="checkbox" id="ministro">
-        </div>
-        <div class="form-group">
-            <label for="orarioOriginale">Orario originale:</label>
-            <div class="inline-group">
-                <input type="number" id="dIniz" value="1" min="0" max="31" placeholder="G">
-                <input type="number" id="hIniz" value="5" min="0" max="23" placeholder="H">
-                <input type="number" id="mIniz" value="30" min="0" max="59" placeholder="M">
-                <input type="number" id="sIniz" value="0" min="0" max="59" placeholder="S">
+        <h1>Applica i boost</h1>
+        <div class="inline-group">
+            <div class="form-group">
+                <label for="ministro">Boost ministero delle scienze:</label>
+                <input type="checkbox" id="ministro">
+            </div>
+            <div class="form-group">
+                <label for="orarioOriginale">Orario originale:</label>
+                <div class="input-group">
+                    <input type="number" id="dIniz" value="1" min="0" max="31" placeholder="G">
+                    <input type="number" id="hIniz" value="5" min="0" max="23" placeholder="H">
+                    <input type="number" id="mIniz" value="30" min="0" max="59" placeholder="M">
+                    <input type="number" id="sIniz" value="0" min="0" max="59" placeholder="S">
+                </div>
             </div>
         </div>
-        <button onclick="runCalculation()">Calcola orario con boost</button>
+        <button onclick="runCalculation()">Applica i boost</button>
         <p id="result"></p>
     </div>
 
@@ -158,7 +177,7 @@
             let sIniz = parseInt(document.getElementById('sIniz').value);
 
             let result = calculateTime(ministroEnabled, dIniz, hIniz, mIniz, sIniz);
-            document.getElementById('result').textContent = result.join(', ');
+            document.getElementById('result').textContent = `Nuovo orario: ${result.join(', ')}`;
         }
     </script>
 </body>
