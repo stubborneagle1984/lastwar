@@ -55,6 +55,7 @@
         }
         .boost-section h2 {
             margin-bottom: 10px;
+            text-align: center;
         }
         button {
             padding: 10px 20px;
@@ -81,7 +82,7 @@
 <body>
     <div class="container">
         <div class="boost-section">
-            <h2 style="text-align: center;">Boost Ricerca Tecnologica</h2>
+            <h2>Boost Ricerca Tecnologica</h2>
             <div class="form-group">
                 <label for="V">Boost da edificio:</label>
                 <input type="number" id="V" value="9" min="0">
@@ -106,13 +107,14 @@
                 <label for="ministro">Boost ministero delle scienze:</label>
                 <input type="checkbox" id="ministro">
             </div>
-            <div class="form-group">
-                <label for="dIniz">Orario originale:</label>
-                <input type="number" id="dIniz" value="1" min="0" max="31" placeholder="G">
-                <input type="number" id="hIniz" value="5" min="0" max="23" placeholder="H">
-                <input type="number" id="mIniz" value="30" min="0" max="59" placeholder="M">
-                <input type="number" id="sIniz" value="0" min="0" max="59" placeholder="S">
-            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="dIniz">Orario originale:</label>
+            <input type="number" id="dIniz" value="1" min="0" max="31" placeholder="G">
+            <input type="number" id="hIniz" value="5" min="0" max="23" placeholder="H">
+            <input type="number" id="mIniz" value="30" min="0" max="59" placeholder="M">
+            <input type="number" id="sIniz" value="0" min="0" max="59" placeholder="S">
         </div>
         
         <div class="boost-calculation">
