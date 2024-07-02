@@ -23,11 +23,6 @@
             width: 400px;
             margin-bottom: 20px;
         }
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
         .form-group {
             display: flex;
             align-items: center;
@@ -85,31 +80,32 @@
 </head>
 <body>
     <div class="container">
+        
         <div class="boost-section">
             <h2>Boost Ricerca Tecnologica</h2>
             <div class="form-group">
                 <label for="centroTecnologico">Centro tecnologico:</label>
-                <input type="number" id="centroTecnologico" value="9" min="0">
+                <input type="number" id="centroTecnologico" min="0">
                 <span class="percent-label">%</span>
             </div>
             <div class="form-group">
                 <label for="sopravvissutiCentroTecnologico">Sopravvissuti nel centro tecnologico:</label>
-                <input type="number" id="sopravvissutiCentroTecnologico" value="69" min="0">
+                <input type="number" id="sopravvissutiCentroTecnologico" min="0">
                 <span class="percent-label">%</span>
             </div>
             <div class="form-group">
                 <label for="tecnologie">Tecnologie:</label>
-                <input type="number" id="tecnologie" value="28" min="0">
+                <input type="number" id="tecnologie" min="0">
                 <span class="percent-label">%</span>
             </div>
             <div class="form-group">
                 <label for="Vip">VIP:</label>
-                <input type="number" id="Vip" value="5" min="0">
+                <input type="number" id="Vip" min="0">
                 <span class="percent-label">%</span>
             </div>
             <div class="form-group">
                 <label for="Ra">Tecnologia dell'alleanza:</label>
-                <input type="number" id="Ra" value="5" min="0">
+                <input type="number" id="Ra" min="0">
                 <span class="percent-label">%</span>
             </div>
             <div class="form-group">
@@ -120,10 +116,10 @@
         
         <div class="form-group">
             <label for="dIniz">Orario originale:</label>
-            <input type="number" id="dIniz" value="1" min="0" max="31" placeholder="G">
-            <input type="number" id="hIniz" value="5" min="0" max="23" placeholder="H">
-            <input type="number" id="mIniz" value="30" min="0" max="59" placeholder="M">
-            <input type="number" id="sIniz" value="0" min="0" max="59" placeholder="S">
+            <input type="number" id="dIniz" min="0" max="31" placeholder="G">
+            <input type="number" id="hIniz" min="0" max="23" placeholder="H">
+            <input type="number" id="mIniz" min="0" max="59" placeholder="M">
+            <input type="number" id="sIniz" min="0" max="59" placeholder="S">
         </div>
         
         <div class="boost-calculation">
@@ -133,12 +129,46 @@
     </div>
 
     <script>
+        // Funzione per salvare i parametri in localStorage
+        function saveParameters() {
+            localStorage.setItem('centroTecnologico', document.getElementById('centroTecnologico').value);
+            localStorage.setItem('sopravvissutiCentroTecnologico', document.getElementById('sopravvissutiCentroTecnologico').value);
+            localStorage.setItem('tecnologie', document.getElementById('tecnologie').value);
+            localStorage.setItem('Vip', document.getElementById('Vip').value);
+            localStorage.setItem('Ra', document.getElementById('Ra').value);
+            localStorage.setItem('ministro', document.getElementById('ministro').checked ? 'true' : 'false');
+            localStorage.setItem('dIniz', document.getElementById('dIniz').value);
+            localStorage.setItem('hIniz', document.getElementById('hIniz').value);
+            localStorage.setItem('mIniz', document.getElementById('mIniz').value);
+            localStorage.setItem('sIniz', document.getElementById('sIniz').value);
+        }
+
+        // Funzione per caricare i parametri da localStorage
+        function loadParameters() {
+            document.getElementById('centroTecnologico').value = localStorage.getItem('centroTecnologico') || '';
+            document.getElementById('sopravvissutiCentroTecnologico').value = localStorage.getItem('sopravvissutiCentroTecnologico') || '';
+            document.getElementById('tecnologie').value = localStorage.getItem('tecnologie') || '';
+            document.getElementById('Vip').value = localStorage.getItem('Vip') || '';
+            document.getElementById('Ra').value = localStorage.getItem('Ra') || '';
+            document.getElementById('ministro').checked = localStorage.getItem('ministro') === 'true';
+            document.getElementById('dIniz').value = localStorage.getItem('dIniz') || '';
+            document.getElementById('hIniz').value = localStorage.getItem('hIniz') || '';
+            document.getElementById('mIniz').value = localStorage.getItem('mIniz') || '';
+            document.getElementById('sIniz').value = localStorage.getItem('sIniz') || '';
+        }
+
+        // Esegui il caricamento al caricamento della pagina
+        document.addEventListener('DOMContentLoaded', function() {
+            loadParameters();
+        });
+
+        // Funzione per calcolare il nuovo orario con boost
         function calculateTime(ministroEnabled, dIniz, hIniz, mIniz, sIniz) {
-            let centroTecnologico = parseInt(document.getElementById('centroTecnologico').value);
-            let sopravvissutiCentroTecnologico = parseInt(document.getElementById('sopravvissutiCentroTecnologico').value);
-            let tecnologie = parseInt(document.getElementById('tecnologie').value);
-            let Vip = parseInt(document.getElementById('Vip').value);
-            let Ra = parseInt(document.getElementById('Ra').value);
+            let centroTecnologico = parseInt(document.getElementById('centroTecnologico').value) || 0;
+            let sopravvissutiCentroTecnologico = parseInt(document.getElementById('sopravvissutiCentroTecnologico').value) || 0;
+            let tecnologie = parseInt(document.getElementById('tecnologie').value) || 0;
+            let Vip = parseInt(document.getElementById('Vip').value) || 0;
+            let Ra = parseInt(document.getElementById('Ra').value) || 0;
             
             let Ministro = ministroEnabled ? 50 : 0; // Boost ministero delle scienze
 
@@ -159,23 +189,22 @@
             let sTot = mTmp2 * 60;
             let sFin = Math.floor(sTot) - dFin * 24 * 60 * 60 - hFin * 60 * 60 - mFin * 60;
 
-            return [
-                `${dFin}d`,
-                `${hFin}h`,
-                `${mFin}m`,
-                `${sFin}s`
-            ];
+            return [dFin, hFin, mFin, sFin];
         }
 
+        // Funzione per gestire il clic sul pulsante di calcolo
         function runCalculation() {
+            saveParameters();
+
+            let dIniz = parseInt(document.getElementById('dIniz').value) || 0;
+            let hIniz = parseInt(document.getElementById('hIniz').value) || 0;
+            let mIniz = parseInt(document.getElementById('mIniz').value) || 0;
+            let sIniz = parseInt(document.getElementById('sIniz').value) || 0;
             let ministroEnabled = document.getElementById('ministro').checked;
-            let dIniz = parseInt(document.getElementById('dIniz').value);
-            let hIniz = parseInt(document.getElementById('hIniz').value);
-            let mIniz = parseInt(document.getElementById('mIniz').value);
-            let sIniz = parseInt(document.getElementById('sIniz').value);
 
             let result = calculateTime(ministroEnabled, dIniz, hIniz, mIniz, sIniz);
-            document.getElementById('result').textContent = `${result.join(', ')}`;
+
+            document.getElementById('result').textContent = `Nuovo orario: ${result[0]}d ${result[1]}h ${result[2]}m ${result[3]}s`;
         }
     </script>
 </body>
