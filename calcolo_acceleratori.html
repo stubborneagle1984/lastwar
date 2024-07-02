@@ -3,28 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calcolatrice Ministeriale</title>
+    <title>Calcolatrice Scientifica</title>
 </head>
 <body>
     <div>
         <label for="ministro">Ministro:</label>
-        <input type="number" id="ministro" value="50">
+        <input type="number" id="ministro" value="0" min="0" max="50">
     </div>
     <div>
         <label for="dIniz">Giorni iniziali:</label>
-        <input type="number" id="dIniz" value="1">
+        <input type="number" id="dIniz" value="1" min="0" max="31">
     </div>
     <div>
         <label for="hIniz">Ore iniziali:</label>
-        <input type="number" id="hIniz" value="14">
+        <input type="number" id="hIniz" value="5" min="0" max="23">
     </div>
     <div>
         <label for="mIniz">Minuti iniziali:</label>
-        <input type="number" id="mIniz" value="18">
+        <input type="number" id="mIniz" value="30" min="0" max="59">
     </div>
     <div>
         <label for="sIniz">Secondi iniziali:</label>
-        <input type="number" id="sIniz" value="13">
+        <input type="number" id="sIniz" value="0" min="0" max="59">
     </div>
     <button onclick="runCalculation()">Calcola</button>
 
@@ -32,7 +32,13 @@
 
     <script>
         function calculateTime(ministro, dIniz, hIniz, mIniz, sIniz) {
-            let vTot = 100 + ministro;
+            let V = 9; // Boost da edificio
+            let S = 25 + 16 + 16 + 12; // Boost da sopravv.
+            let R = 10 + 10 + 4 + 4; // Boost tecnologia
+            let Vip = 5; // VIP
+            let Ra = 5; // Tecn. dell'alleanza
+
+            let vTot = 100 + V + S + R + Vip + Ra + ministro;
 
             let mTmp = (dIniz * 24 * 60) + (hIniz * 60) + mIniz + (sIniz / 60);
             let mTmp2 = mTmp * 100 / vTot;
@@ -49,7 +55,13 @@
             let sTot = mTmp2 * 60;
             let sFin = Math.floor(sTot) - dFin * 24 * 60 * 60 - hFin * 60 * 60 - mFin * 60;
 
-            return [dFin, hFin, mFin, sFin];
+            return [
+                `${dFin}d`,
+                `${hFin}h`,
+                `${mFin}m`,
+                `${sFin}s`,
+                `velocità: ${(vTot - 100 + 0.00000001).toFixed(8)}`
+            ];
         }
 
         function runCalculation() {
