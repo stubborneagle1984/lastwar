@@ -16,12 +16,22 @@
             margin: 0;
         }
         .container {
+            display: flex;
+            justify-content: space-between;
+            width: 800px; /* Larghezza complessiva delle due schede */
+            margin: 0 auto; /* Per centrare nella pagina */
+        }
+        .boost-section {
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
+            width: calc(50% - 20px); /* Larghezza della singola scheda */
             margin-bottom: 20px;
+        }
+        .boost-section h2 {
+            margin-bottom: 10px;
+            text-align: center;
         }
         .form-group {
             display: flex;
@@ -44,17 +54,6 @@
         .form-group .percent-label {
             font-size: 14px;
             margin-left: 5px;
-        }
-        .boost-section {
-            background-color: #f0f0f0;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .boost-section h2 {
-            margin-bottom: 10px;
-            text-align: center;
         }
         button {
             padding: 10px 20px;
@@ -80,7 +79,7 @@
 </head>
 <body>
     <div class="container">
-        
+        <!-- Prima scheda -->
         <div class="boost-section">
             <h2>Boost Ricerca Tecnologica</h2>
             <div class="form-group">
@@ -109,70 +108,149 @@
                 <span class="percent-label">%</span>
             </div>
             <div class="form-group">
-                <label for="ministro">Boost ministero delle scienze:</label>
-                <input type="checkbox" id="ministro">
+                <label for="ministroScienza">Ministro della scienza:</label>
+                <input type="checkbox" id="ministroScienza">
+            </div>
+            <div class="form-group">
+                <label for="dIniz">Orario originale:</label>
+                <input type="number" id="dIniz" min="0" max="31" placeholder="G">
+                <input type="number" id="hIniz" min="0" max="23" placeholder="H">
+                <input type="number" id="mIniz" min="0" max="59" placeholder="M">
+                <input type="number" id="sIniz" min="0" max="59" placeholder="S">
+            </div>
+            <div class="boost-calculation">
+                <button onclick="runCalculation()">Applica i boost</button>
+                <p id="result"></p>
             </div>
         </div>
-        
-        <div class="form-group">
-            <label for="dIniz">Orario originale:</label>
-            <input type="number" id="dIniz" min="0" max="31" placeholder="G">
-            <input type="number" id="hIniz" min="0" max="23" placeholder="H">
-            <input type="number" id="mIniz" min="0" max="59" placeholder="M">
-            <input type="number" id="sIniz" min="0" max="59" placeholder="S">
-        </div>
-        
-        <div class="boost-calculation">
-            <button onclick="runCalculation()">Applica i boost</button>
-            <p id="result"></p>
+
+        <!-- Seconda scheda -->
+        <div class="boost-section">
+            <h2>Boost Costruzione</h2>
+            <div class="form-group">
+                <label for="tecnologie2">Tecnologie:</label>
+                <input type="number" id="tecnologie2" min="0">
+                <span class="percent-label">%</span>
+            </div>
+            <div class="form-group">
+                <label for="Vip2">VIP:</label>
+                <input type="number" id="Vip2" min="0">
+                <span class="percent-label">%</span>
+            </div>
+            <div class="form-group">
+                <label for="Ra2">Tecnologia dell'alleanza:</label>
+                <input type="number" id="Ra2" min="0">
+                <span class="percent-label">%</span>
+            </div>
+            <div class="form-group">
+                <label for="ministroEdilizia">Ministro dell'edilizia:</label>
+                <input type="checkbox" id="ministroEdilizia">
+            </div>
+            <div class="form-group">
+                <label for="dIniz2">Orario:</label>
+                <input type="number" id="dIniz2" min="0" max="31" placeholder="G">
+                <input type="number" id="hIniz2" min="0" max="23" placeholder="H">
+                <input type="number" id="mIniz2" min="0" max="59" placeholder="M">
+                <input type="number" id="sIniz2" min="0" max="59" placeholder="S">
+            </div>
+            <div class="boost-calculation">
+                <button onclick="runCalculation2()">Applica i boost</button>
+                <p id="result2"></p>
+            </div>
         </div>
     </div>
 
     <script>
-        // Funzione per salvare i parametri in localStorage
+        // Funzione per salvare i parametri in localStorage per la prima scheda
         function saveParameters() {
             localStorage.setItem('centroTecnologico', document.getElementById('centroTecnologico').value);
             localStorage.setItem('sopravvissutiCentroTecnologico', document.getElementById('sopravvissutiCentroTecnologico').value);
             localStorage.setItem('tecnologie', document.getElementById('tecnologie').value);
             localStorage.setItem('Vip', document.getElementById('Vip').value);
             localStorage.setItem('Ra', document.getElementById('Ra').value);
-            localStorage.setItem('ministro', document.getElementById('ministro').checked ? 'true' : 'false');
+            localStorage.setItem('ministroScienza', document.getElementById('ministroScienza').checked ? 'true' : 'false');
             localStorage.setItem('dIniz', document.getElementById('dIniz').value);
             localStorage.setItem('hIniz', document.getElementById('hIniz').value);
             localStorage.setItem('mIniz', document.getElementById('mIniz').value);
             localStorage.setItem('sIniz', document.getElementById('sIniz').value);
         }
 
-        // Funzione per caricare i parametri da localStorage
+        // Funzione per caricare i parametri da localStorage per la prima scheda
         function loadParameters() {
             document.getElementById('centroTecnologico').value = localStorage.getItem('centroTecnologico') || '';
             document.getElementById('sopravvissutiCentroTecnologico').value = localStorage.getItem('sopravvissutiCentroTecnologico') || '';
             document.getElementById('tecnologie').value = localStorage.getItem('tecnologie') || '';
             document.getElementById('Vip').value = localStorage.getItem('Vip') || '';
             document.getElementById('Ra').value = localStorage.getItem('Ra') || '';
-            document.getElementById('ministro').checked = localStorage.getItem('ministro') === 'true';
+            document.getElementById('ministroScienza').checked = localStorage.getItem('ministroScienza') === 'true';
             document.getElementById('dIniz').value = localStorage.getItem('dIniz') || '';
             document.getElementById('hIniz').value = localStorage.getItem('hIniz') || '';
             document.getElementById('mIniz').value = localStorage.getItem('mIniz') || '';
             document.getElementById('sIniz').value = localStorage.getItem('sIniz') || '';
         }
 
-        // Esegui il caricamento al caricamento della pagina
-        document.addEventListener('DOMContentLoaded', function() {
-            loadParameters();
-        });
+        // Funzione per calcolare il nuovo orario per la prima scheda
+        function runCalculation() {
+            saveParameters();
 
-        // Funzione per calcolare il nuovo orario con boost
-        function calculateTime(ministroEnabled, dIniz, hIniz, mIniz, sIniz) {
-            let centroTecnologico = parseInt(document.getElementById('centroTecnologico').value) || 0;
-            let sopravvissutiCentroTecnologico = parseInt(document.getElementById('sopravvissutiCentroTecnologico').value) || 0;
-            let tecnologie = parseInt(document.getElementById('tecnologie').value) || 0;
-            let Vip = parseInt(document.getElementById('Vip').value) || 0;
-            let Ra = parseInt(document.getElementById('Ra').value) || 0;
-            
-            let Ministro = ministroEnabled ? 50 : 0; // Boost ministero delle scienze
+            let dIniz = parseInt(document.getElementById('dIniz').value) || 0;
+            let hIniz = parseInt(document.getElementById('hIniz').value) || 0;
+            let mIniz = parseInt(document.getElementById('mIniz').value) || 0;
+            let sIniz = parseInt(document.getElementById('sIniz').value) || 0;
+            let ministroEnabled = document.getElementById('ministroScienza').checked;
 
-            let vTot = 100 + centroTecnologico + sopravvissutiCentroTecnologico + tecnologie + Vip + Ra + Ministro;
+            let result = calculateTime(ministroEnabled, dIniz, hIniz, mIniz, sIniz);
+
+            document.getElementById('result').textContent = `${result[0]}d ${result[1]}h ${result[2]}m ${result[3]}s`;
+        }
+
+        // Funzione per salvare i parametri in localStorage per la seconda scheda
+        function saveParameters2() {
+            localStorage.setItem('tecnologie2', document.getElementById('tecnologie2').value);
+            localStorage.setItem('Vip2', document.getElementById('Vip2').value);
+            localStorage.setItem('Ra2', document.getElementById('Ra2').value);
+            localStorage.setItem('ministroEdilizia', document.getElementById('ministroEdilizia').checked ? 'true' : 'false');
+            localStorage.setItem('dIniz2', document.getElementById('dIniz2').value);
+            localStorage.setItem('hIniz2', document.getElementById('hIniz2').value);
+            localStorage.setItem('mIniz2', document.getElementById('mIniz2').value);
+            localStorage.setItem('sIniz2', document.getElementById('sIniz2').value);
+        }
+
+        // Funzione per caricare i parametri da localStorage per la seconda scheda
+        function loadParameters2() {
+            document.getElementById('tecnologie2').value = localStorage.getItem('tecnologie2') || '';
+            document.getElementById('Vip2').value = localStorage.getItem('Vip2') || '';
+            document.getElementById('Ra2').value = localStorage.getItem('Ra2') || '';
+            document.getElementById('ministroEdilizia').checked = localStorage.getItem('ministroEdilizia') === 'true';
+            document.getElementById('dIniz2').value = localStorage.getItem('dIniz2') || '';
+            document.getElementById('hIniz2').value = localStorage.getItem('hIniz2') || '';
+            document.getElementById('mIniz2').value = localStorage.getItem('mIniz2') || '';
+            document.getElementById('sIniz2').value = localStorage.getItem('sIniz2') || '';
+        }
+
+        // Funzione per calcolare il nuovo orario per la seconda scheda
+        function runCalculation2() {
+            saveParameters2();
+
+            let dIniz = parseInt(document.getElementById('dIniz2').value) || 0;
+            let hIniz = parseInt(document.getElementById('hIniz2').value) || 0;
+            let mIniz = parseInt(document.getElementById('mIniz2').value) || 0;
+            let sIniz = parseInt(document.getElementById('sIniz2').value) || 0;
+            let ministroEnabled = document.getElementById('ministroEdilizia').checked;
+
+            let result = calculateTime(ministroEnabled, dIniz, hIniz, mIniz, sIniz);
+
+            document.getElementById('result2').textContent = `${result[0]}d ${result[1]}h ${result[2]}m ${result[3]}s`;
+        }
+
+        // Funzione per il calcolo del tempo con i boost
+        function calculateTime(ministro, dIniz, hIniz, mIniz, sIniz) {
+            let V = 9;
+            let S = parseInt(document.getElementById('sopravvissutiCentroTecnologico').value) + 16 + 16 + 12;
+            let R = parseInt(document.getElementById('tecnologie').value) + 10 + 10 + 4 + 4;
+            let Vip = 5;
+            let Ra = 5;
+            let vTot = 100 + V + S + R + Vip + Ra + (ministro ? 50 : 0);
 
             let mTmp = (dIniz * 24 * 60) + (hIniz * 60) + mIniz + (sIniz / 60);
             let mTmp2 = mTmp * 100 / vTot;
@@ -192,20 +270,11 @@
             return [dFin, hFin, mFin, sFin];
         }
 
-        // Funzione per gestire il clic sul pulsante di calcolo
-        function runCalculation() {
-            saveParameters();
-
-            let dIniz = parseInt(document.getElementById('dIniz').value) || 0;
-            let hIniz = parseInt(document.getElementById('hIniz').value) || 0;
-            let mIniz = parseInt(document.getElementById('mIniz').value) || 0;
-            let sIniz = parseInt(document.getElementById('sIniz').value) || 0;
-            let ministroEnabled = document.getElementById('ministro').checked;
-
-            let result = calculateTime(ministroEnabled, dIniz, hIniz, mIniz, sIniz);
-
-            document.getElementById('result').textContent = `Nuovo orario: ${result[0]}d ${result[1]}h ${result[2]}m ${result[3]}s`;
-        }
+        // Carica i parametri al caricamento della pagina per entrambe le schede
+        window.onload = function() {
+            loadParameters();
+            loadParameters2();
+        };
     </script>
 </body>
 </html>
