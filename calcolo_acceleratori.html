@@ -9,56 +9,57 @@
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
             color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            padding: 20px;
         }
+
         .container {
             display: flex;
-            justify-content: space-between;
-            width: 900px; /* Larghezza complessiva delle due schede */
-            margin: 20px auto; /* Aggiunto margine e centratura */
+            flex-direction: column; /* Modificato per impilare le schede su dispositivi mobili */
+            max-width: 100%;
+            margin: 0 auto;
         }
+
         .boost-section {
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: calc(50% - 20px); /* Larghezza della singola scheda */
             margin-bottom: 20px;
-            margin-right: 10px; /* Aggiunto margine destro */
         }
-        .boost-section:last-child {
-            margin-right: 0; /* Rimuovere il margine destro per l'ultima scheda */
-        }
+
         .boost-section h2 {
             margin-bottom: 10px;
             text-align: center;
         }
+
         .form-group {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
         }
+
         .form-group label {
-            width: 180px; /* Aumentata la larghezza per contenere "Ministro dell'edilizia" */
+            flex: 0 0 180px; /* Larghezza fissa per label */
             text-align: right;
             margin-right: 10px;
         }
+
         .form-group input[type="number"], .form-group input[type="checkbox"] {
+            flex: 1; /* Occupa lo spazio rimanente */
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 14px;
-            width: 60px;
+            width: 60px; /* Larghezza minima */
             margin-right: 5px;
         }
+
         .form-group .percent-label {
             font-size: 14px;
             margin-left: 5px;
         }
+
         button {
             padding: 10px 20px;
             border: none;
@@ -70,14 +71,34 @@
             width: 100%;
             margin-top: 10px;
         }
+
         button:hover {
             background-color: #0056b3;
         }
+
         #result, #result2 {
             margin-top: 20px;
             font-size: 18px;
             text-align: center;
             color: #007bff;
+        }
+
+        @media only screen and (min-width: 600px) {
+            /* Stili per schermi più larghi (tablet e desktop) */
+            .container {
+                flex-direction: row;
+                justify-content: space-between;
+                width: 900px; /* Larghezza complessiva delle due schede */
+            }
+
+            .boost-section {
+                width: calc(50% - 20px); /* Larghezza della singola scheda */
+                margin-right: 10px; /* Margine destro tra le schede */
+            }
+
+            .boost-section:last-child {
+                margin-right: 0; /* Rimuovere il margine destro per l'ultima scheda */
+            }
         }
     </style>
 </head>
@@ -189,7 +210,7 @@
 
             let sTot = mTmp2 * 60;
             let sFin = Math.floor(sTot) - dFin * 24 * 60 * 60 - hFin * 60 * 60 - mFin * 60;
-            
+
             return `${dFin}d ${hFin}h ${mFin}m ${sFin}s`;
         }
 
