@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Applica i boost</title>
+    <title>Calcoli Boost</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -26,6 +26,7 @@
         h1 {
             text-align: center;
             color: #333;
+            margin-bottom: 20px;
         }
         .form-group {
             display: flex;
@@ -43,28 +44,17 @@
             width: 60px;
             margin-right: 5px;
         }
-        .inline-group {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .inline-group label {
-            width: 100px; /* Larghezza della label */
-            text-align: right;
-            margin-right: 10px;
-        }
-        .inline-group .input-group {
-            display: flex;
-            align-items: center;
-        }
-        .inline-group .input-group input[type="number"] {
-            margin-right: 5px;
-        }
         .boost-section {
             background-color: #f0f0f0;
             padding: 10px;
             border-radius: 5px;
             margin-bottom: 20px;
+        }
+        .boost-section h2 {
+            margin-bottom: 10px;
+        }
+        .boost-section .form-group {
+            margin-bottom: 10px;
         }
         button {
             padding: 10px 20px;
@@ -112,14 +102,13 @@
                 <label for="Ra">Tecnologia dell'alleanza:</label>
                 <input type="number" id="Ra" value="5" min="0">
             </div>
-        </div>
-        
-        <h1>Applica i boost</h1>
-        <div class="inline-group">
             <div class="form-group">
                 <label for="ministro">Boost ministero delle scienze:</label>
                 <input type="checkbox" id="ministro">
             </div>
+        </div>
+        
+        <div class="boost-calculation">
             <div class="form-group">
                 <label for="orarioOriginale">Orario originale:</label>
                 <div class="input-group">
@@ -129,9 +118,9 @@
                     <input type="number" id="sIniz" value="0" min="0" max="59" placeholder="S">
                 </div>
             </div>
+            <button onclick="runCalculation()">Applica i boost</button>
+            <p id="result"></p>
         </div>
-        <button onclick="runCalculation()">Applica i boost</button>
-        <p id="result"></p>
     </div>
 
     <script>
@@ -177,7 +166,7 @@
             let sIniz = parseInt(document.getElementById('sIniz').value);
 
             let result = calculateTime(ministroEnabled, dIniz, hIniz, mIniz, sIniz);
-            document.getElementById('result').textContent = `Nuovo orario: ${result.join(', ')}`;
+            document.getElementById('result').textContent = `${result.join(', ')}`;
         }
     </script>
 </body>
