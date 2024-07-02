@@ -28,6 +28,10 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: calc(50% - 20px); /* Larghezza della singola scheda */
             margin-bottom: 20px;
+            margin-right: 10px; /* Aggiunto margine destro */
+        }
+        .boost-section:last-child {
+            margin-right: 0; /* Rimuovere il margine destro per l'ultima scheda */
         }
         .boost-section h2 {
             margin-bottom: 10px;
@@ -183,10 +187,9 @@
             let mTot = mTmp2;
             let mFin = Math.floor(mTot) - dFin * 24 * 60 - hFin * 60;
 
-            let sTot = mTmp2 * 60;
-            let sFin = Math.floor(sTot) - dFin * 24 * 60 * 60 - hFin * 60 * 60 - mFin * 60;
+            let sFin = Math.round((mTot - Math.floor(mTot)) * 60);
 
-            return `${dFin}d ${hFin}h ${mFin}m ${sFin}s`;
+            return `${dFin}g ${hFin}h ${mFin}m ${sFin}s`;
         }
 
         // Funzione per il salvataggio dei parametri della prima scheda in localStorage
