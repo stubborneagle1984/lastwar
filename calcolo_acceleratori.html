@@ -69,7 +69,7 @@
         button:hover {
             background-color: #0056b3;
         }
-        #result {
+        #result, #result2 {
             margin-top: 20px;
             font-size: 18px;
             text-align: center;
@@ -163,13 +163,13 @@
     <script>
         // Funzione per il calcolo del tempo con i boost
         function calculateTime(ministro, dIniz, hIniz, mIniz, sIniz, centroTecnologico, sopravvissutiCentroTecnologico, tecnologie, Vip, Ra) {
-    				let V = parseFloat(centroTecnologico) || 0; // Modifica per utilizzare il valore di centroTecnologico
-    				let S = parseFloat(sopravvissutiCentroTecnologico) || 0; // Modifica per utilizzare il valore di sopravvissutiCentroTecnologico
-    				let R = parseFloat(tecnologie) || 0; // Modifica per utilizzare il valore di tecnologie
-    				let VipValue = parseFloat(Vip) || 0; // Modifica per utilizzare il valore di Vip
-    				let RaValue = parseFloat(Ra) || 0; // Modifica per utilizzare il valore di Ra
+            let V = parseFloat(centroTecnologico) || 0; // Modifica per utilizzare il valore di centroTecnologico
+            let S = parseFloat(sopravvissutiCentroTecnologico) || 0; // Modifica per utilizzare il valore di sopravvissutiCentroTecnologico
+            let R = parseFloat(tecnologie) || 0; // Modifica per utilizzare il valore di tecnologie
+            let VipValue = parseFloat(Vip) || 0; // Modifica per utilizzare il valore di Vip
+            let RaValue = parseFloat(Ra) || 0; // Modifica per utilizzare il valore di Ra
 
-            let vTot = 100 + V + S + R + VipValue + RaValue + (ministro ? 50 : 0);
+            let vTot = 100 + V + S + VipValue + RaValue + (ministro ? 50 : 0);
 
             let mTmp = (dIniz * 24 * 60) + (hIniz * 60) + mIniz + (sIniz / 60);
             let mTmp2 = mTmp * 100 / vTot;
