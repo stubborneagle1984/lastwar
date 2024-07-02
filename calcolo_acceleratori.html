@@ -1,32 +1,94 @@
+<!DOCTYPE html>
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calcolatrice Scientifica</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input[type="checkbox"] {
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+            color: #007bff;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <label for="ministro">Ministro:</label>
-        <input type="checkbox" id="ministro">
+    <div class="container">
+        <h1>Calcolatrice Scientifica</h1>
+        <div class="form-group">
+            <label for="ministro">Ministro:</label>
+            <input type="checkbox" id="ministro">
+        </div>
+        <div class="form-group">
+            <label for="dIniz">Giorni iniziali:</label>
+            <input type="number" id="dIniz" value="1" min="0" max="31">
+        </div>
+        <div class="form-group">
+            <label for="hIniz">Ore iniziali:</label>
+            <input type="number" id="hIniz" value="5" min="0" max="23">
+        </div>
+        <div class="form-group">
+            <label for="mIniz">Minuti iniziali:</label>
+            <input type="number" id="mIniz" value="30" min="0" max="59">
+        </div>
+        <div class="form-group">
+            <label for="sIniz">Secondi iniziali:</label>
+            <input type="number" id="sIniz" value="0" min="0" max="59">
+        </div>
+        <button onclick="runCalculation()">Calcola</button>
+        <p id="result"></p>
     </div>
-    <div>
-        <label for="dIniz">Giorni iniziali:</label>
-        <input type="number" id="dIniz" value="1" min="0" max="31">
-    </div>
-    <div>
-        <label for="hIniz">Ore iniziali:</label>
-        <input type="number" id="hIniz" value="5" min="0" max="23">
-    </div>
-    <div>
-        <label for="mIniz">Minuti iniziali:</label>
-        <input type="number" id="mIniz" value="30" min="0" max="59">
-    </div>
-    <div>
-        <label for="sIniz">Secondi iniziali:</label>
-        <input type="number" id="sIniz" value="0" min="0" max="59">
-    </div>
-    <button onclick="runCalculation()">Calcola</button>
-
-    <p id="result"></p>
 
     <script>
         function calculateTime(ministroEnabled, dIniz, hIniz, mIniz, sIniz) {
@@ -59,7 +121,7 @@
                 `${hFin}h`,
                 `${mFin}m`,
                 `${sFin}s`,
-                `velocità: ${(vTot - 100).toFixed(2)}`
+                `velocità: ${(vTot - 100 + 0.00000001).toFixed(8)}`
             ];
         }
 
