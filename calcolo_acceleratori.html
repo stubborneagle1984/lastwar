@@ -173,7 +173,7 @@
             let VipValue = parseFloat(Vip) || 0; // Modifica per utilizzare il valore di Vip
             let RaValue = parseFloat(Ra) || 0; // Modifica per utilizzare il valore di Ra
 
-            let vTot = 100 + V + S + VipValue + RaValue + (ministro ? 50 : 0);
+            let vTot = 100 + V + S + R + VipValue + RaValue + (ministro ? 50 : 0);
 
             let mTmp = (dIniz * 24 * 60) + (hIniz * 60) + mIniz + (sIniz / 60);
             let mTmp2 = mTmp * 100 / vTot;
@@ -187,9 +187,10 @@
             let mTot = mTmp2;
             let mFin = Math.floor(mTot) - dFin * 24 * 60 - hFin * 60;
 
-            let sFin = Math.round((mTot - Math.floor(mTot)) * 60);
-
-            return `${dFin}g ${hFin}h ${mFin}m ${sFin}s`;
+            let sTot = mTmp2 * 60;
+            let sFin = Math.floor(sTot) - dFin * 24 * 60 * 60 - hFin * 60 * 60 - mFin * 60;
+            
+            return `${dFin}d ${hFin}h ${mFin}m ${sFin}s`;
         }
 
         // Funzione per il salvataggio dei parametri della prima scheda in localStorage
