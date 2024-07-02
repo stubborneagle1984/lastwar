@@ -84,16 +84,16 @@
         <div class="boost-section">
             <h2>Boost Ricerca Tecnologica</h2>
             <div class="form-group">
-                <label for="V">Boost da edificio:</label>
-                <input type="number" id="V" value="9" min="0">
+                <label for="centroTecnologico">Centro tecnologico:</label>
+                <input type="number" id="centroTecnologico" value="9" min="0">
             </div>
             <div class="form-group">
-                <label for="S">Boost sopravvissuti:</label>
-                <input type="number" id="S" value="69" min="0">
+                <label for="sopravvissutiCentroTecnologico">Sopravvissuti nel centro tecnologico:</label>
+                <input type="number" id="sopravvissutiCentroTecnologico" value="69" min="0">
             </div>
             <div class="form-group">
-                <label for="R">Boost tecnologia:</label>
-                <input type="number" id="R" value="28" min="0">
+                <label for="tecnologie">Tecnologie:</label>
+                <input type="number" id="tecnologie" value="28" min="0">
             </div>
             <div class="form-group">
                 <label for="Vip">VIP:</label>
@@ -125,15 +125,15 @@
 
     <script>
         function calculateTime(ministroEnabled, dIniz, hIniz, mIniz, sIniz) {
-            let V = parseInt(document.getElementById('V').value);
-            let S = parseInt(document.getElementById('S').value);
-            let R = parseInt(document.getElementById('R').value);
+            let centroTecnologico = parseInt(document.getElementById('centroTecnologico').value);
+            let sopravvissutiCentroTecnologico = parseInt(document.getElementById('sopravvissutiCentroTecnologico').value);
+            let tecnologie = parseInt(document.getElementById('tecnologie').value);
             let Vip = parseInt(document.getElementById('Vip').value);
             let Ra = parseInt(document.getElementById('Ra').value);
             
             let Ministro = ministroEnabled ? 50 : 0; // Boost ministero delle scienze
 
-            let vTot = 100 + V + S + R + Vip + Ra + Ministro;
+            let vTot = 100 + centroTecnologico + sopravvissutiCentroTecnologico + tecnologie + Vip + Ra + Ministro;
 
             let mTmp = (dIniz * 24 * 60) + (hIniz * 60) + mIniz + (sIniz / 60);
             let mTmp2 = mTmp * 100 / vTot;
