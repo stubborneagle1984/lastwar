@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +6,7 @@
 <body>
     <div>
         <label for="ministro">Ministro:</label>
-        <input type="number" id="ministro" value="0" min="0" max="50">
+        <input type="checkbox" id="ministro">
     </div>
     <div>
         <label for="dIniz">Giorni iniziali:</label>
@@ -31,14 +29,15 @@
     <p id="result"></p>
 
     <script>
-        function calculateTime(ministro, dIniz, hIniz, mIniz, sIniz) {
+        function calculateTime(ministroEnabled, dIniz, hIniz, mIniz, sIniz) {
             let V = 9; // Boost da edificio
             let S = 25 + 16 + 16 + 12; // Boost da sopravv.
             let R = 10 + 10 + 4 + 4; // Boost tecnologia
             let Vip = 5; // VIP
             let Ra = 5; // Tecn. dell'alleanza
+            let Ministro = ministroEnabled ? 50 : 0; // ministero scienza attivo/disattivo
 
-            let vTot = 100 + V + S + R + Vip + Ra + ministro;
+            let vTot = 100 + V + S + R + Vip + Ra + Ministro;
 
             let mTmp = (dIniz * 24 * 60) + (hIniz * 60) + mIniz + (sIniz / 60);
             let mTmp2 = mTmp * 100 / vTot;
@@ -65,13 +64,13 @@
         }
 
         function runCalculation() {
-            let ministro = parseInt(document.getElementById('ministro').value);
+            let ministroEnabled = document.getElementById('ministro').checked;
             let dIniz = parseInt(document.getElementById('dIniz').value);
             let hIniz = parseInt(document.getElementById('hIniz').value);
             let mIniz = parseInt(document.getElementById('mIniz').value);
             let sIniz = parseInt(document.getElementById('sIniz').value);
 
-            let result = calculateTime(ministro, dIniz, hIniz, mIniz, sIniz);
+            let result = calculateTime(ministroEnabled, dIniz, hIniz, mIniz, sIniz);
             document.getElementById('result').textContent = `Risultato: ${result.join(', ')}`;
         }
     </script>
