@@ -18,8 +18,8 @@
         .container {
             display: flex;
             justify-content: space-between;
-            width: 800px; /* Larghezza complessiva delle due schede */
-            margin: 0 auto; /* Per centrare nella pagina */
+            width: 900px; /* Larghezza complessiva delle due schede */
+            margin: 20px auto; /* Aggiunto margine e centratura */
         }
         .boost-section {
             background-color: #fff;
@@ -39,7 +39,7 @@
             margin-bottom: 10px;
         }
         .form-group label {
-            width: 150px;
+            width: 180px; /* Aumentata la larghezza per contenere "Ministro dell'edilizia" */
             text-align: right;
             margin-right: 10px;
         }
@@ -79,7 +79,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- Prima scheda -->
+        <!-- Scheda "Boost Ricerca Tecnologica" -->
         <div class="boost-section">
             <h2>Boost Ricerca Tecnologica</h2>
             <div class="form-group">
@@ -124,7 +124,7 @@
             </div>
         </div>
 
-        <!-- Seconda scheda -->
+        <!-- Scheda "Boost Costruzione" -->
         <div class="boost-section">
             <h2>Boost Costruzione</h2>
             <div class="form-group">
@@ -161,96 +161,15 @@
     </div>
 
     <script>
-        // Funzione per salvare i parametri in localStorage per la prima scheda
-        function saveParameters() {
-            localStorage.setItem('centroTecnologico', document.getElementById('centroTecnologico').value);
-            localStorage.setItem('sopravvissutiCentroTecnologico', document.getElementById('sopravvissutiCentroTecnologico').value);
-            localStorage.setItem('tecnologie', document.getElementById('tecnologie').value);
-            localStorage.setItem('Vip', document.getElementById('Vip').value);
-            localStorage.setItem('Ra', document.getElementById('Ra').value);
-            localStorage.setItem('ministroScienza', document.getElementById('ministroScienza').checked ? 'true' : 'false');
-            localStorage.setItem('dIniz', document.getElementById('dIniz').value);
-            localStorage.setItem('hIniz', document.getElementById('hIniz').value);
-            localStorage.setItem('mIniz', document.getElementById('mIniz').value);
-            localStorage.setItem('sIniz', document.getElementById('sIniz').value);
-        }
-
-        // Funzione per caricare i parametri da localStorage per la prima scheda
-        function loadParameters() {
-            document.getElementById('centroTecnologico').value = localStorage.getItem('centroTecnologico') || '';
-            document.getElementById('sopravvissutiCentroTecnologico').value = localStorage.getItem('sopravvissutiCentroTecnologico') || '';
-            document.getElementById('tecnologie').value = localStorage.getItem('tecnologie') || '';
-            document.getElementById('Vip').value = localStorage.getItem('Vip') || '';
-            document.getElementById('Ra').value = localStorage.getItem('Ra') || '';
-            document.getElementById('ministroScienza').checked = localStorage.getItem('ministroScienza') === 'true';
-            document.getElementById('dIniz').value = localStorage.getItem('dIniz') || '';
-            document.getElementById('hIniz').value = localStorage.getItem('hIniz') || '';
-            document.getElementById('mIniz').value = localStorage.getItem('mIniz') || '';
-            document.getElementById('sIniz').value = localStorage.getItem('sIniz') || '';
-        }
-
-        // Funzione per calcolare il nuovo orario per la prima scheda
-        function runCalculation() {
-            saveParameters();
-
-            let dIniz = parseInt(document.getElementById('dIniz').value) || 0;
-            let hIniz = parseInt(document.getElementById('hIniz').value) || 0;
-            let mIniz = parseInt(document.getElementById('mIniz').value) || 0;
-            let sIniz = parseInt(document.getElementById('sIniz').value) || 0;
-            let ministroEnabled = document.getElementById('ministroScienza').checked;
-
-            let result = calculateTime(ministroEnabled, dIniz, hIniz, mIniz, sIniz);
-
-            document.getElementById('result').textContent = `${result[0]}d ${result[1]}h ${result[2]}m ${result[3]}s`;
-        }
-
-        // Funzione per salvare i parametri in localStorage per la seconda scheda
-        function saveParameters2() {
-            localStorage.setItem('tecnologie2', document.getElementById('tecnologie2').value);
-            localStorage.setItem('Vip2', document.getElementById('Vip2').value);
-            localStorage.setItem('Ra2', document.getElementById('Ra2').value);
-            localStorage.setItem('ministroEdilizia', document.getElementById('ministroEdilizia').checked ? 'true' : 'false');
-            localStorage.setItem('dIniz2', document.getElementById('dIniz2').value);
-            localStorage.setItem('hIniz2', document.getElementById('hIniz2').value);
-            localStorage.setItem('mIniz2', document.getElementById('mIniz2').value);
-            localStorage.setItem('sIniz2', document.getElementById('sIniz2').value);
-        }
-
-        // Funzione per caricare i parametri da localStorage per la seconda scheda
-        function loadParameters2() {
-            document.getElementById('tecnologie2').value = localStorage.getItem('tecnologie2') || '';
-            document.getElementById('Vip2').value = localStorage.getItem('Vip2') || '';
-            document.getElementById('Ra2').value = localStorage.getItem('Ra2') || '';
-            document.getElementById('ministroEdilizia').checked = localStorage.getItem('ministroEdilizia') === 'true';
-            document.getElementById('dIniz2').value = localStorage.getItem('dIniz2') || '';
-            document.getElementById('hIniz2').value = localStorage.getItem('hIniz2') || '';
-            document.getElementById('mIniz2').value = localStorage.getItem('mIniz2') || '';
-            document.getElementById('sIniz2').value = localStorage.getItem('sIniz2') || '';
-        }
-
-        // Funzione per calcolare il nuovo orario per la seconda scheda
-        function runCalculation2() {
-            saveParameters2();
-
-            let dIniz = parseInt(document.getElementById('dIniz2').value) || 0;
-            let hIniz = parseInt(document.getElementById('hIniz2').value) || 0;
-            let mIniz = parseInt(document.getElementById('mIniz2').value) || 0;
-            let sIniz = parseInt(document.getElementById('sIniz2').value) || 0;
-            let ministroEnabled = document.getElementById('ministroEdilizia').checked;
-
-            let result = calculateTime(ministroEnabled, dIniz, hIniz, mIniz, sIniz);
-
-            document.getElementById('result2').textContent = `${result[0]}d ${result[1]}h ${result[2]}m ${result[3]}s`;
-        }
-
         // Funzione per il calcolo del tempo con i boost
-        function calculateTime(ministro, dIniz, hIniz, mIniz, sIniz) {
-            let V = 9;
-            let S = parseInt(document.getElementById('sopravvissutiCentroTecnologico').value) + 16 + 16 + 12;
-            let R = parseInt(document.getElementById('tecnologie').value) + 10 + 10 + 4 + 4;
-            let Vip = 5;
-            let Ra = 5;
-            let vTot = 100 + V + S + R + Vip + Ra + (ministro ? 50 : 0);
+        function calculateTime(ministro, dIniz, hIniz, mIniz, sIniz, centroTecnologico, sopravvissutiCentroTecnologico, tecnologie, Vip, Ra) {
+    				let V = parseFloat(centroTecnologico) || 0; // Modifica per utilizzare il valore di centroTecnologico
+    				let S = parseFloat(sopravvissutiCentroTecnologico) || 0; // Modifica per utilizzare il valore di sopravvissutiCentroTecnologico
+    				let R = parseFloat(tecnologie) || 0; // Modifica per utilizzare il valore di tecnologie
+    				let VipValue = parseFloat(Vip) || 0; // Modifica per utilizzare il valore di Vip
+    				let RaValue = parseFloat(Ra) || 0; // Modifica per utilizzare il valore di Ra
+
+            let vTot = 100 + V + S + R + VipValue + RaValue + (ministro ? 50 : 0);
 
             let mTmp = (dIniz * 24 * 60) + (hIniz * 60) + mIniz + (sIniz / 60);
             let mTmp2 = mTmp * 100 / vTot;
@@ -267,7 +186,97 @@
             let sTot = mTmp2 * 60;
             let sFin = Math.floor(sTot) - dFin * 24 * 60 * 60 - hFin * 60 * 60 - mFin * 60;
 
-            return [dFin, hFin, mFin, sFin];
+            return `${dFin}d ${hFin}h ${mFin}m ${sFin}s`;
+        }
+
+        // Funzione per il salvataggio dei parametri della prima scheda in localStorage
+        function saveParameters() {
+            localStorage.setItem('centroTecnologico', document.getElementById('centroTecnologico').value);
+            localStorage.setItem('sopravvissutiCentroTecnologico', document.getElementById('sopravvissutiCentroTecnologico').value);
+            localStorage.setItem('tecnologie', document.getElementById('tecnologie').value);
+            localStorage.setItem('Vip', document.getElementById('Vip').value);
+            localStorage.setItem('Ra', document.getElementById('Ra').value);
+            localStorage.setItem('ministroScienza', document.getElementById('ministroScienza').checked ? 'true' : 'false');
+            localStorage.setItem('dIniz', document.getElementById('dIniz').value);
+            localStorage.setItem('hIniz', document.getElementById('hIniz').value);
+            localStorage.setItem('mIniz', document.getElementById('mIniz').value);
+            localStorage.setItem('sIniz', document.getElementById('sIniz').value);
+        }
+
+        // Funzione per il caricamento dei parametri della prima scheda da localStorage
+        function loadParameters() {
+            document.getElementById('centroTecnologico').value = localStorage.getItem('centroTecnologico') || '';
+            document.getElementById('sopravvissutiCentroTecnologico').value = localStorage.getItem('sopravvissutiCentroTecnologico') || '';
+            document.getElementById('tecnologie').value = localStorage.getItem('tecnologie') || '';
+            document.getElementById('Vip').value = localStorage.getItem('Vip') || '';
+            document.getElementById('Ra').value = localStorage.getItem('Ra') || '';
+            document.getElementById('ministroScienza').checked = localStorage.getItem('ministroScienza') === 'true';
+            document.getElementById('dIniz').value = localStorage.getItem('dIniz') || '';
+            document.getElementById('hIniz').value = localStorage.getItem('hIniz') || '';
+            document.getElementById('mIniz').value = localStorage.getItem('mIniz') || '';
+            document.getElementById('sIniz').value = localStorage.getItem('sIniz') || '';
+        }
+
+        // Funzione per il calcolo del tempo con i boost per la prima scheda
+        function runCalculation() {
+            saveParameters();
+
+            let centroTecnologico = parseInt(document.getElementById('centroTecnologico').value) || 0;
+            let sopravvissutiCentroTecnologico = parseInt(document.getElementById('sopravvissutiCentroTecnologico').value) || 0;
+            let tecnologie = parseInt(document.getElementById('tecnologie').value) || 0;
+            let Vip = parseInt(document.getElementById('Vip').value) || 0;
+            let Ra = parseInt(document.getElementById('Ra').value) || 0;
+            let dIniz = parseInt(document.getElementById('dIniz').value) || 0;
+            let hIniz = parseInt(document.getElementById('hIniz').value) || 0;
+            let mIniz = parseInt(document.getElementById('mIniz').value) || 0;
+            let sIniz = parseInt(document.getElementById('sIniz').value) || 0;
+            let ministroEnabled = document.getElementById('ministroScienza').checked;
+
+            let result = calculateTime(ministroEnabled, dIniz, hIniz, mIniz, sIniz, centroTecnologico, sopravvissutiCentroTecnologico, tecnologie, Vip, Ra);
+
+            document.getElementById('result').textContent = result;
+        }
+
+        // Funzione per il salvataggio dei parametri della seconda scheda in localStorage
+        function saveParameters2() {
+            localStorage.setItem('tecnologie2', document.getElementById('tecnologie2').value);
+            localStorage.setItem('Vip2', document.getElementById('Vip2').value);
+            localStorage.setItem('Ra2', document.getElementById('Ra2').value);
+            localStorage.setItem('ministroEdilizia', document.getElementById('ministroEdilizia').checked ? 'true' : 'false');
+            localStorage.setItem('dIniz2', document.getElementById('dIniz2').value);
+            localStorage.setItem('hIniz2', document.getElementById('hIniz2').value);
+            localStorage.setItem('mIniz2', document.getElementById('mIniz2').value);
+            localStorage.setItem('sIniz2', document.getElementById('sIniz2').value);
+        }
+
+        // Funzione per il caricamento dei parametri della seconda scheda da localStorage
+        function loadParameters2() {
+            document.getElementById('tecnologie2').value = localStorage.getItem('tecnologie2') || '';
+            document.getElementById('Vip2').value = localStorage.getItem('Vip2') || '';
+            document.getElementById('Ra2').value = localStorage.getItem('Ra2') || '';
+            document.getElementById('ministroEdilizia').checked = localStorage.getItem('ministroEdilizia') === 'true';
+            document.getElementById('dIniz2').value = localStorage.getItem('dIniz2') || '';
+            document.getElementById('hIniz2').value = localStorage.getItem('hIniz2') || '';
+            document.getElementById('mIniz2').value = localStorage.getItem('mIniz2') || '';
+            document.getElementById('sIniz2').value = localStorage.getItem('sIniz2') || '';
+        }
+
+        // Funzione per il calcolo del tempo con i boost per la seconda scheda
+        function runCalculation2() {
+            saveParameters2();
+
+            let tecnologie2 = parseInt(document.getElementById('tecnologie2').value) || 0;
+            let Vip2 = parseInt(document.getElementById('Vip2').value) || 0;
+            let Ra2 = parseInt(document.getElementById('Ra2').value) || 0;
+            let dIniz2 = parseInt(document.getElementById('dIniz2').value) || 0;
+            let hIniz2 = parseInt(document.getElementById('hIniz2').value) || 0;
+            let mIniz2 = parseInt(document.getElementById('mIniz2').value) || 0;
+            let sIniz2 = parseInt(document.getElementById('sIniz2').value) || 0;
+            let ministroEnabled2 = document.getElementById('ministroEdilizia').checked;
+
+            let result = calculateTime(ministroEnabled2, dIniz2, hIniz2, mIniz2, sIniz2, 0, 0, tecnologie2, Vip2, Ra2);
+
+            document.getElementById('result2').textContent = result;
         }
 
         // Carica i parametri al caricamento della pagina per entrambe le schede
