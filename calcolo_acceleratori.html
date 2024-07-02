@@ -40,18 +40,30 @@
         }
 
         .form-group label {
-            flex: 0 0 180px; /* Larghezza fissa per label */
+            flex: 0 0 90px; /* Larghezza fissa per label */
             text-align: right;
             margin-right: 10px;
         }
 
-        .form-group input[type="number"], .form-group input[type="checkbox"] {
+        .form-group input[type="number"] {
             flex: 1; /* Occupa lo spazio rimanente */
             padding: 8px;
             border: 1px solid #ccc;
+            text-align: center;            
             border-radius: 5px;
             font-size: 14px;
-            width: 60px; /* Larghezza minima */
+            width:30px; /* Larghezza minima */
+            margin-right: 5px;
+        }
+
+        .form-group .form-group input[type="checkbox"] {
+            flex: 0; /* Occupa lo spazio rimanente */
+            padding: 8px;
+            border: 1px solid #ccc;
+            text-align: center;            
+            border-radius: 5px;
+            font-size: 14px;
+            width:30px; /* Larghezza minima */
             margin-right: 5px;
         }
 
