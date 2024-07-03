@@ -1,1 +1,364 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcoli Boost</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
 
+        .container {
+            display: flex;
+            flex-direction: column; /* Modificato per impilare le schede su dispositivi mobili */
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .boost-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .boost-section h2 {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            flex: 0 0 90px; /* Larghezza fissa per label */
+            text-align: right;
+            margin-right: 10px;
+        }
+
+        .form-group select {
+            flex: 1; /* Occupa lo spazio rimanente */
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            text-align: center;
+            margin-right: 5px;
+        }
+
+        .form-group .form-group input[type="checkbox"] {
+            flex: 0; /* Occupa lo spazio rimanente */
+            padding: 8px;
+            border: 1px solid #ccc;
+            text-align: center;            
+            border-radius: 5px;
+            font-size: 14px;
+            width:30px; /* Larghezza minima */
+            margin-right: 5px;
+        }
+
+        .form-group .percent-label {
+            font-size: 14px;
+            margin-left: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result, #result2 {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+            color: #007bff;
+        }
+
+        @media only screen and (min-width: 600px) {
+            /* Stili per schermi più larghi (tablet e desktop) */
+            .container {
+                flex-direction: row;
+                justify-content: space-between;
+                width: 900px; /* Larghezza complessiva delle due schede */
+            }
+
+            .boost-section {
+                width: calc(50% - 20px); /* Larghezza della singola scheda */
+                margin-right: 10px; /* Margine destro tra le schede */
+            }
+
+            .boost-section:last-child {
+                margin-right: 0; /* Rimuovere il margine destro per l'ultima scheda */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Scheda "Boost Ricerca Tecnologica" -->
+        <div class="boost-section">
+            <h2>Boost Ricerca Tecnologica</h2>
+            <div class="form-group">
+                <label for="centroTecnologico">Centro tecnologico:</label>
+                <select id="centroTecnologico">
+                    ${generateOptions(50)}
+                </select>
+                <span class="percent-label">%</span>
+            </div>
+            <div class="form-group">
+                <label for="sopravvissutiCentroTecnologico">Sopravvissuti nel centro tecnologico:</label>
+                <select id="sopravvissutiCentroTecnologico">
+                    ${generateOptions(100)}
+                </select>
+              <span class="percent-label">%</span>
+            </div>
+            <div class="form-group">
+                <label for="tecnologie">Tecnologie:</label>
+                <select id="tecnologie">
+                    ${generateOptions(100)}
+                </select>
+              <span class="percent-label">%</span>
+            </div>
+            <div class="form-group">
+                <label for="Vip">VIP:</label>
+                <select id="Vip">
+                    ${generateOptions(50)}
+                </select>
+              <span class="percent-label">%</span>
+            </div>
+            <div class="form-group">
+                <label for="Ra">Tecnologia dell'alleanza:</label>
+                <select id="Ra">
+                    ${generateOptions(50)}
+                </select>
+              <span class="percent-label">%</span>
+            </div>
+            <div class="form-group">
+                <label for="ministroScienza">Ministro della scienza:</label>
+                <input type="checkbox" id="ministroScienza">
+            </div>
+            <div class="form-group">
+                <select id="dIniz" placeholder="G">
+                    ${generateOptions(31)}
+                </select>
+                <select id="hIniz" placeholder="H">
+                    ${generateOptions(23)}
+                </select>
+                <select id="mIniz" placeholder="M">
+                    ${generateOptions(59)}
+                </select>
+                <select id="sIniz" placeholder="S">
+                    ${generateOptions(59)}
+                </select>
+            </div>
+            <div class="boost-calculation">
+                <button onclick="runCalculation()">Applica i boost</button>
+                <p id="result"></p>
+            </div>
+        </div>
+
+        <!-- Scheda "Boost Costruzione" -->
+        <div class="boost-section">
+            <h2>Boost Costruzione</h2>
+            <div class="form-group">
+                <label for="tecnologie2">Tecnologie:</label>
+                <select id="tecnologie2">
+                    ${generateOptions(100)}
+                </select>
+              <span class="percent-label">%</span>
+            </div>
+            <div class="form-group">
+                <label for="Vip2">VIP:</label>
+                <select id="Vip2">
+                    ${generateOptions(50)}
+                </select>
+              <span class="percent-label">%</span>
+            </div>
+            <div class="form-group">
+                <label for="Ra2">Tecnologia dell'alleanza:</label>
+                <select id="Ra2">
+                    ${generateOptions(50)}
+                </select>
+              <span class="percent-label">%</span>
+            </div>
+            <div class="form-group">
+                <label for="ministroEdilizia">Ministro dell'edilizia:</label>
+                <input type="checkbox" id="ministroEdilizia">
+            </div>
+            <div class="form-group">
+                <select id="dIniz2" placeholder="G">
+                    ${generateOptions(31)}
+                </select>
+                <select id="hIniz2" placeholder="H">
+                    ${generateOptions(23)}
+                </select>
+                <select id="mIniz2" placeholder="M">
+                    ${generateOptions(59)}
+                </select>
+                <select id="sIniz2" placeholder="S">
+                    ${generateOptions(59)}
+                </select>
+            </div>
+            <div class="boost-calculation">
+                <button onclick="runCalculation2()">Applica i boost</button>
+                <p id="result2"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Funzione per generare le opzioni delle select
+        function generateOptions(maxValue) {
+            let options = '';
+            for (let i = 0; i <= maxValue; i++) {
+                options += `<option value="${i}">${i}</option>`;
+            }
+            return options;
+        }
+      
+        // Funzione per il calcolo del tempo con i boost
+        function calculateTime(ministro, dIniz, hIniz, mIniz, sIniz, centroTecnologico, sopravvissutiCentroTecnologico, tecnologie, Vip, Ra) {
+            let V = parseFloat(centroTecnologico) || 0; // Modifica per utilizzare il valore di centroTecnologico
+            let S = parseFloat(sopravvissutiCentroTecnologico) || 0; // Modifica per utilizzare il valore di sopravvissutiCentroTecnologico
+            let R = parseFloat(tecnologie) || 0; // Modifica per utilizzare il valore di tecnologie
+            let VipValue = parseFloat(Vip) || 0; // Modifica per utilizzare il valore di Vip
+            let RaValue = parseFloat(Ra) || 0; // Modifica per utilizzare il valore di Ra
+
+            let vTot = 100 + V + S + R + VipValue + RaValue + (ministro ? 50 : 0);
+
+            let mTmp = (dIniz * 24 * 60) + (hIniz * 60) + mIniz + (sIniz / 60);
+            let mTmp2 = mTmp * 100 / vTot;
+
+            let dTot = mTmp2 / 60 / 24;
+            let dFin = Math.floor(dTot);
+
+            let hTot = mTmp2 / 60;
+            let hFin = Math.floor(hTot) - dFin * 24;
+
+            let mTot = mTmp2;
+            let mFin = Math.floor(mTot) - dFin * 24 * 60 - hFin * 60;
+
+            let sTot = mTmp2 * 60;
+            let sFin = Math.floor(sTot) - dFin * 24 * 60 * 60 - hFin * 60 * 60 - mFin * 60;
+
+            return `${dFin}d ${hFin}h ${mFin}m ${sFin}s`;
+        }
+
+        // Funzione per il salvataggio dei parametri della prima scheda in localStorage
+        function saveParameters() {
+            localStorage.setItem('centroTecnologico', document.getElementById('centroTecnologico').value);
+            localStorage.setItem('sopravvissutiCentroTecnologico', document.getElementById('sopravvissutiCentroTecnologico').value);
+            localStorage.setItem('tecnologie', document.getElementById('tecnologie').value);
+            localStorage.setItem('Vip', document.getElementById('Vip').value);
+            localStorage.setItem('Ra', document.getElementById('Ra').value);
+            localStorage.setItem('ministroScienza', document.getElementById('ministroScienza').checked ? 'true' : 'false');
+            localStorage.setItem('dIniz', document.getElementById('dIniz').value);
+            localStorage.setItem('hIniz', document.getElementById('hIniz').value);
+            localStorage.setItem('mIniz', document.getElementById('mIniz').value);
+            localStorage.setItem('sIniz', document.getElementById('sIniz').value);
+        }
+
+        // Funzione per il caricamento dei parametri della prima scheda da localStorage
+        function loadParameters() {
+            document.getElementById('centroTecnologico').value = localStorage.getItem('centroTecnologico') || '';
+            document.getElementById('sopravvissutiCentroTecnologico').value = localStorage.getItem('sopravvissutiCentroTecnologico') || '';
+            document.getElementById('tecnologie').value = localStorage.getItem('tecnologie') || '';
+            document.getElementById('Vip').value = localStorage.getItem('Vip') || '';
+            document.getElementById('Ra').value = localStorage.getItem('Ra') || '';
+            document.getElementById('ministroScienza').checked = localStorage.getItem('ministroScienza') === 'true';
+            document.getElementById('dIniz').value = localStorage.getItem('dIniz') || '';
+            document.getElementById('hIniz').value = localStorage.getItem('hIniz') || '';
+            document.getElementById('mIniz').value = localStorage.getItem('mIniz') || '';
+            document.getElementById('sIniz').value = localStorage.getItem('sIniz') || '';
+        }
+
+        // Funzione per il calcolo del tempo con i boost per la prima scheda
+        function runCalculation() {
+            saveParameters();
+
+            let centroTecnologico = parseInt(document.getElementById('centroTecnologico').value) || 0;
+            let sopravvissutiCentroTecnologico = parseInt(document.getElementById('sopravvissutiCentroTecnologico').value) || 0;
+            let tecnologie = parseInt(document.getElementById('tecnologie').value) || 0;
+            let Vip = parseInt(document.getElementById('Vip').value) || 0;
+            let Ra = parseInt(document.getElementById('Ra').value) || 0;
+            let dIniz = parseInt(document.getElementById('dIniz').value) || 0;
+            let hIniz = parseInt(document.getElementById('hIniz').value) || 0;
+            let mIniz = parseInt(document.getElementById('mIniz').value) || 0;
+            let sIniz = parseInt(document.getElementById('sIniz').value) || 0;
+            let ministroEnabled = document.getElementById('ministroScienza').checked;
+
+            let result = calculateTime(ministroEnabled, dIniz, hIniz, mIniz, sIniz, centroTecnologico, sopravvissutiCentroTecnologico, tecnologie, Vip, Ra);
+
+            document.getElementById('result').textContent = result;
+        }
+
+        // Funzione per il salvataggio dei parametri della seconda scheda in localStorage
+        function saveParameters2() {
+            localStorage.setItem('tecnologie2', document.getElementById('tecnologie2').value);
+            localStorage.setItem('Vip2', document.getElementById('Vip2').value);
+            localStorage.setItem('Ra2', document.getElementById('Ra2').value);
+            localStorage.setItem('ministroEdilizia', document.getElementById('ministroEdilizia').checked ? 'true' : 'false');
+            localStorage.setItem('dIniz2', document.getElementById('dIniz2').value);
+            localStorage.setItem('hIniz2', document.getElementById('hIniz2').value);
+            localStorage.setItem('mIniz2', document.getElementById('mIniz2').value);
+            localStorage.setItem('sIniz2', document.getElementById('sIniz2').value);
+        }
+
+        // Funzione per il caricamento dei parametri della seconda scheda da localStorage
+        function loadParameters2() {
+            document.getElementById('tecnologie2').value = localStorage.getItem('tecnologie2') || '';
+            document.getElementById('Vip2').value = localStorage.getItem('Vip2') || '';
+            document.getElementById('Ra2').value = localStorage.getItem('Ra2') || '';
+            document.getElementById('ministroEdilizia').checked = localStorage.getItem('ministroEdilizia') === 'true';
+            document.getElementById('dIniz2').value = localStorage.getItem('dIniz2') || '';
+            document.getElementById('hIniz2').value = localStorage.getItem('hIniz2') || '';
+            document.getElementById('mIniz2').value = localStorage.getItem('mIniz2') || '';
+            document.getElementById('sIniz2').value = localStorage.getItem('sIniz2') || '';
+        }
+
+        // Funzione per il calcolo del tempo con i boost per la seconda scheda
+        function runCalculation2() {
+            saveParameters2();
+
+            let tecnologie2 = parseInt(document.getElementById('tecnologie2').value) || 0;
+            let Vip2 = parseInt(document.getElementById('Vip2').value) || 0;
+            let Ra2 = parseInt(document.getElementById('Ra2').value) || 0;
+            let dIniz2 = parseInt(document.getElementById('dIniz2').value) || 0;
+            let hIniz2 = parseInt(document.getElementById('hIniz2').value) || 0;
+            let mIniz2 = parseInt(document.getElementById('mIniz2').value) || 0;
+            let sIniz2 = parseInt(document.getElementById('sIniz2').value) || 0;
+            let ministroEnabled2 = document.getElementById('ministroEdilizia').checked;
+
+            let result = calculateTime(ministroEnabled2, dIniz2, hIniz2, mIniz2, sIniz2, 0, 0, tecnologie2, Vip2, Ra2);
+
+            document.getElementById('result2').textContent = result;
+        }
+
+        // Carica i parametri al caricamento della pagina per entrambe le schede
+        window.onload = function() {
+            loadParameters();
+            loadParameters2();
+        };
+    </script>
+</body>
+</html>
