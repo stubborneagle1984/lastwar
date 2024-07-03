@@ -120,37 +120,27 @@
             <h2>Boost Ricerca Tecnologica</h2>
             <div class="form-group">
                 <label for="centroTecnologico">Centro tecnologico:</label>
-                <select id="centroTecnologico">
-                    ${generateOptions(50)}
-                </select>
+                <select id="centroTecnologico"></select>
                 <span class="percent-label">%</span>
             </div>
             <div class="form-group">
                 <label for="sopravvissutiCentroTecnologico">Sopravvissuti nel centro tecnologico:</label>
-                <select id="sopravvissutiCentroTecnologico">
-                    ${generateOptions(100)}
-                </select>
+                <select id="sopravvissutiCentroTecnologico"></select>
               <span class="percent-label">%</span>
             </div>
             <div class="form-group">
                 <label for="tecnologie">Tecnologie:</label>
-                <select id="tecnologie">
-                    ${generateOptions(100)}
-                </select>
+                <select id="tecnologie"></select>
               <span class="percent-label">%</span>
             </div>
             <div class="form-group">
                 <label for="Vip">VIP:</label>
-                <select id="Vip">
-                    ${generateOptions(50)}
-                </select>
+                <select id="Vip"></select>
               <span class="percent-label">%</span>
             </div>
             <div class="form-group">
                 <label for="Ra">Tecnologia dell'alleanza:</label>
-                <select id="Ra">
-                    ${generateOptions(50)}
-                </select>
+                <select id="Ra"></select>
               <span class="percent-label">%</span>
             </div>
             <div class="form-group">
@@ -158,18 +148,10 @@
                 <input type="checkbox" id="ministroScienza">
             </div>
             <div class="form-group">
-                <select id="dIniz" placeholder="G">
-                    ${generateOptions(31)}
-                </select>
-                <select id="hIniz" placeholder="H">
-                    ${generateOptions(23)}
-                </select>
-                <select id="mIniz" placeholder="M">
-                    ${generateOptions(59)}
-                </select>
-                <select id="sIniz" placeholder="S">
-                    ${generateOptions(59)}
-                </select>
+                <select id="dIniz"></select>
+                <select id="hIniz"></select>
+                <select id="mIniz"></select>
+                <select id="sIniz"></select>
             </div>
             <div class="boost-calculation">
                 <button onclick="runCalculation()">Applica i boost</button>
@@ -182,23 +164,17 @@
             <h2>Boost Costruzione</h2>
             <div class="form-group">
                 <label for="tecnologie2">Tecnologie:</label>
-                <select id="tecnologie2">
-                    ${generateOptions(100)}
-                </select>
+                <select id="tecnologie2"></select>
               <span class="percent-label">%</span>
             </div>
             <div class="form-group">
                 <label for="Vip2">VIP:</label>
-                <select id="Vip2">
-                    ${generateOptions(50)}
-                </select>
+                <select id="Vip2"></select>
               <span class="percent-label">%</span>
             </div>
             <div class="form-group">
                 <label for="Ra2">Tecnologia dell'alleanza:</label>
-                <select id="Ra2">
-                    ${generateOptions(50)}
-                </select>
+                <select id="Ra2"></select>
               <span class="percent-label">%</span>
             </div>
             <div class="form-group">
@@ -206,18 +182,10 @@
                 <input type="checkbox" id="ministroEdilizia">
             </div>
             <div class="form-group">
-                <select id="dIniz2" placeholder="G">
-                    ${generateOptions(31)}
-                </select>
-                <select id="hIniz2" placeholder="H">
-                    ${generateOptions(23)}
-                </select>
-                <select id="mIniz2" placeholder="M">
-                    ${generateOptions(59)}
-                </select>
-                <select id="sIniz2" placeholder="S">
-                    ${generateOptions(59)}
-                </select>
+                <select id="dIniz2"></select>
+                <select id="hIniz2"></select>
+                <select id="mIniz2"></select>
+                <select id="sIniz2"></select>
             </div>
             <div class="boost-calculation">
                 <button onclick="runCalculation2()">Applica i boost</button>
@@ -235,6 +203,27 @@
             }
             return options;
         }
+
+        // Funzione per popolare tutte le select
+        function populateSelects() {
+            document.getElementById('centroTecnologico').innerHTML = generateOptions(50);
+            document.getElementById('sopravvissutiCentroTecnologico').innerHTML = generateOptions(100);
+            document.getElementById('tecnologie').innerHTML = generateOptions(100);
+            document.getElementById('Vip').innerHTML = generateOptions(50);
+            document.getElementById('Ra').innerHTML = generateOptions(50);
+            document.getElementById('dIniz').innerHTML = generateOptions(31);
+            document.getElementById('hIniz').innerHTML = generateOptions(23);
+            document.getElementById('mIniz').innerHTML = generateOptions(59);
+            document.getElementById('sIniz').innerHTML = generateOptions(59);
+
+            document.getElementById('tecnologie2').innerHTML = generateOptions(100);
+            document.getElementById('Vip2').innerHTML = generateOptions(50);
+            document.getElementById('Ra2').innerHTML = generateOptions(50);
+            document.getElementById('dIniz2').innerHTML = generateOptions(31);
+            document.getElementById('hIniz2').innerHTML = generateOptions(23);
+            document.getElementById('mIniz2').innerHTML = generateOptions(59);
+            document.getElementById('sIniz2').innerHTML = generateOptions(59);
+        }        
       
         // Funzione per il calcolo del tempo con i boost
         function calculateTime(ministro, dIniz, hIniz, mIniz, sIniz, centroTecnologico, sopravvissutiCentroTecnologico, tecnologie, Vip, Ra) {
