@@ -149,7 +149,7 @@
             </div>
             <div class="form-group">
                 <label for="dAccT">Tempo di accelerazione gratuito:</label>
-    		<input type="checkbox" id="useAccT">                		    
+    		<input type="checkbox" id="useAccT" onclick="toggleAccT()">                		    
                 <select id="dAccT"></select>
                 <select id="hAccT"></select>
                 <select id="mAccT"></select>
@@ -192,7 +192,7 @@
             </div>
             <div class="form-group">
                 <label for="dAccT2">Tempo di accelerazione gratuito:</label>
-    		<input type="checkbox" id="useAccT2">                		    		    
+    		<input type="checkbox" id="useAccT2" onclick="toggleAccT2()">                		    		    
                 <select id="dAccT2"></select>
                 <select id="hAccT2"></select>
                 <select id="mAccT2"></select>
@@ -258,6 +258,22 @@
 			document.getElementById(id).innerHTML = generateOptions(config.maxValue, config.step, config.precision);
 		}
 	}
+
+	function toggleAccT() {
+		const isChecked = document.getElementById('useAccT').checked;
+		document.getElementById('dAccT').disabled = !isChecked;
+		document.getElementById('hAccT').disabled = !isChecked;
+		document.getElementById('mAccT').disabled = !isChecked;
+		document.getElementById('sAccT').disabled = !isChecked;
+	}
+
+	function toggleAccT2() {
+		const isChecked = document.getElementById('useAccT2').checked;
+		document.getElementById('dAccT2').disabled = !isChecked;
+		document.getElementById('hAccT2').disabled = !isChecked;
+		document.getElementById('mAccT2').disabled = !isChecked;
+		document.getElementById('sAccT2').disabled = !isChecked;
+	}		    
       
         // Funzione per il calcolo del tempo con i boost
         function calculateTime(ministro, useAccT, dAccT, hAccT, mAccT, sAccT, dIniz, hIniz, mIniz, sIniz, centroTecnologico, sopravvissutiCentroTecnologico, tecnologie, Vip, Ra) {
@@ -335,7 +351,7 @@
             document.getElementById('mIniz').value = localStorage.getItem('mIniz') || '';
             document.getElementById('sIniz').value = localStorage.getItem('sIniz') || '';
             document.getElementById('useAccT').checked = localStorage.getItem('useAccT') === 'true';				
-        }
+        }    
 
         // Funzione per il calcolo del tempo con i boost per la prima scheda
         function runCalculation() {
@@ -424,6 +440,8 @@
             populateSelects();
             loadParameters();
             loadParameters2();
+            toggleAccT();
+            toggleAccT2();		
         };
     </script>
 </body>
