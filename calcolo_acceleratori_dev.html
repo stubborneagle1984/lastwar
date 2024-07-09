@@ -149,6 +149,7 @@
             </div>
             <div class="form-group">
                 <label for="dAccT">Tempo di accelerazione gratuito:</label>
+    		<input type="checkbox" id="useAccT">                		    
                 <select id="dAccT"></select>
                 <select id="hAccT"></select>
                 <select id="mAccT"></select>
@@ -191,6 +192,7 @@
             </div>
             <div class="form-group">
                 <label for="dAccT2">Tempo di accelerazione gratuito:</label>
+    		<input type="checkbox" id="useAccT2">                		    		    
                 <select id="dAccT2"></select>
                 <select id="hAccT2"></select>
                 <select id="mAccT2"></select>
@@ -258,7 +260,7 @@
 	}
       
         // Funzione per il calcolo del tempo con i boost
-        function calculateTime(ministro, dAccT, hAccT, mAccT, sAccT, dIniz, hIniz, mIniz, sIniz, centroTecnologico, sopravvissutiCentroTecnologico, tecnologie, Vip, Ra) {
+        function calculateTime(ministro, useAccT, dAccT, hAccT, mAccT, sAccT, dIniz, hIniz, mIniz, sIniz, centroTecnologico, sopravvissutiCentroTecnologico, tecnologie, Vip, Ra) {
             let V = parseFloat(centroTecnologico) || 0;
             let S = parseFloat(sopravvissutiCentroTecnologico) || 0;
             let R = parseFloat(tecnologie) || 0;
@@ -273,9 +275,11 @@
             // Convertire i minuti totali in giorni, ore, minuti, secondi
             let totalSeconds = mTmp2 * 60;
 
-            // Sottrarre il tempo di accelerazione gratuita in secondi
-            let accSeconds = ((dAccT * 24 * 60 * 60) + (hAccT * 60 * 60) + (mAccT * 60) + sAccT);
-            totalSeconds -= accSeconds;
+	    if (useAccT) {
+        	// Sottrarre il tempo di accelerazione gratuita in secondi
+	        let accSeconds = ((dAccT * 24 * 60 * 60) + (hAccT * 60 * 60) + (mAccT * 60) + sAccT);
+        	totalSeconds -= accSeconds;
+	    }
 
             if (totalSeconds < 0) {
                 return "Tempo di accelerazione maggiore del tempo iniziale";
@@ -311,6 +315,7 @@
             localStorage.setItem('hIniz', document.getElementById('hIniz').value);
             localStorage.setItem('mIniz', document.getElementById('mIniz').value);
             localStorage.setItem('sIniz', document.getElementById('sIniz').value);
+            localStorage.setItem('useAccT', document.getElementById('useAccT').checked ? 'true' : 'false');				
         }
 
         // Funzione per il caricamento dei parametri della prima scheda da localStorage
@@ -329,6 +334,7 @@
             document.getElementById('hIniz').value = localStorage.getItem('hIniz') || '';
             document.getElementById('mIniz').value = localStorage.getItem('mIniz') || '';
             document.getElementById('sIniz').value = localStorage.getItem('sIniz') || '';
+            document.getElementById('useAccT').checked = localStorage.getItem('useAccT') === 'true';				
         }
 
         // Funzione per il calcolo del tempo con i boost per la prima scheda
@@ -349,8 +355,9 @@
             let mIniz = parseInt(document.getElementById('mIniz').value) || 0;
             let sIniz = parseInt(document.getElementById('sIniz').value) || 0;
             let ministroEnabled = document.getElementById('ministroScienza').checked;
+	    let useAccT = document.getElementById('useAccT').checked;
 
-            let result = calculateTime(ministroEnabled, dAccT, hAccT, mAccT, sAccT, dIniz, hIniz, mIniz, sIniz, centroTecnologico, sopravvissutiCentroTecnologico, tecnologie, Vip, Ra);
+            let result = calculateTime(ministroEnabled, useAccT, dAccT, hAccT, mAccT, sAccT, dIniz, hIniz, mIniz, sIniz, centroTecnologico, sopravvissutiCentroTecnologico, tecnologie, Vip, Ra);
 
             document.getElementById('result').textContent = result;
         }
@@ -369,6 +376,7 @@
             localStorage.setItem('hIniz2', document.getElementById('hIniz2').value);
             localStorage.setItem('mIniz2', document.getElementById('mIniz2').value);
             localStorage.setItem('sIniz2', document.getElementById('sIniz2').value);
+            localStorage.setItem('useAccT2', document.getElementById('useAccT2').checked ? 'true' : 'false');		
         }
 
         // Funzione per il caricamento dei parametri della seconda scheda da localStorage
@@ -385,6 +393,7 @@
             document.getElementById('hIniz2').value = localStorage.getItem('hIniz2') || '';
             document.getElementById('mIniz2').value = localStorage.getItem('mIniz2') || '';
             document.getElementById('sIniz2').value = localStorage.getItem('sIniz2') || '';
+            document.getElementById('useAccT2').checked = localStorage.getItem('useAccT2') === 'true';		
         }
 
         // Funzione per il calcolo del tempo con i boost per la seconda scheda
@@ -403,8 +412,9 @@
             let mIniz2 = parseInt(document.getElementById('mIniz2').value) || 0;
             let sIniz2 = parseInt(document.getElementById('sIniz2').value) || 0;
             let ministroEnabled2 = document.getElementById('ministroEdilizia').checked;
+	    let useAccT2 = document.getElementById('useAccT2').checked;
 
-            let result = calculateTime(ministroEnabled2, dAccT2, hAccT2, mAccT2, sAccT2, dIniz2, hIniz2, mIniz2, sIniz2, 0, 0, tecnologie2, Vip2, Ra2);
+            let result = calculateTime(ministroEnabled2, useAccT2, dAccT2, hAccT2, mAccT2, sAccT2, dIniz2, hIniz2, mIniz2, sIniz2, 0, 0, tecnologie2, Vip2, Ra2);
 
             document.getElementById('result2').textContent = result;
         }
