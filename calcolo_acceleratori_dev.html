@@ -335,11 +335,11 @@
         function runCalculation() {
             saveParameters();
 
-            let centroTecnologico = parseInt(document.getElementById('centroTecnologico').value) || 0;
-            let sopravvissutiCentroTecnologico = parseInt(document.getElementById('sopravvissutiCentroTecnologico').value) || 0;
-            let tecnologie = parseInt(document.getElementById('tecnologie').value) || 0;
-            let Vip = parseInt(document.getElementById('Vip').value) || 0;
-            let Ra = parseInt(document.getElementById('Ra').value) || 0;
+            let centroTecnologico = parseFloat(document.getElementById('centroTecnologico').value) || 0;
+            let sopravvissutiCentroTecnologico = parseFloat(document.getElementById('sopravvissutiCentroTecnologico').value) || 0;
+            let tecnologie = parseFloat(document.getElementById('tecnologie').value) || 0;
+            let Vip = parseFloat(document.getElementById('Vip').value) || 0;
+            let Ra = parseFloat(document.getElementById('Ra').value) || 0;
             let dAccT = parseInt(document.getElementById('dAccT').value) || 0;
             let hAccT = parseInt(document.getElementById('hAccT').value) || 0;
             let mAccT = parseInt(document.getElementById('mAccT').value) || 0;
@@ -391,9 +391,9 @@
         function runCalculation2() {
             saveParameters2();
 
-            let tecnologie2 = parseInt(document.getElementById('tecnologie2').value) || 0;
-            let Vip2 = parseInt(document.getElementById('Vip2').value) || 0;
-            let Ra2 = parseInt(document.getElementById('Ra2').value) || 0;
+            let tecnologie2 = parseFloat(document.getElementById('tecnologie2').value) || 0;
+            let Vip2 = parseFloat(document.getElementById('Vip2').value) || 0;
+            let Ra2 = parseFloat(document.getElementById('Ra2').value) || 0;
             let dAccT2 = parseInt(document.getElementById('dAccT2').value) || 0;
             let hAccT2 = parseInt(document.getElementById('hAccT2').value) || 0;
             let mAccT2 = parseInt(document.getElementById('mAccT2').value) || 0;
