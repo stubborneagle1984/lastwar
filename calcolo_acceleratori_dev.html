@@ -211,43 +211,51 @@
     </div>
 
     <script>
-        // Funzione per generare le opzioni delle select
-        function generateOptions(maxValue) {
-            let options = '';
-            for (let i = 0; i <= maxValue; i++) {
-                options += `<option value="${i}">${i}</option>`;
-            }
-            return options;
-        }
-
-        // Funzione per popolare tutte le select
-        function populateSelects() {
-            document.getElementById('centroTecnologico').innerHTML = generateOptions(50);
-            document.getElementById('sopravvissutiCentroTecnologico').innerHTML = generateOptions(100);
-            document.getElementById('tecnologie').innerHTML = generateOptions(100);
-            document.getElementById('Vip').innerHTML = generateOptions(50);
-            document.getElementById('Ra').innerHTML = generateOptions(50);
-            document.getElementById('dAccT').innerHTML = generateOptions(31);
-            document.getElementById('hAccT').innerHTML = generateOptions(23);
-            document.getElementById('mAccT').innerHTML = generateOptions(59);
-            document.getElementById('sAccT').innerHTML = generateOptions(59);            
-            document.getElementById('dIniz').innerHTML = generateOptions(31);
-            document.getElementById('hIniz').innerHTML = generateOptions(23);
-            document.getElementById('mIniz').innerHTML = generateOptions(59);
-            document.getElementById('sIniz').innerHTML = generateOptions(59);
-
-            document.getElementById('tecnologie2').innerHTML = generateOptions(100);
-            document.getElementById('Vip2').innerHTML = generateOptions(50);
-            document.getElementById('Ra2').innerHTML = generateOptions(50);
-            document.getElementById('dAccT2').innerHTML = generateOptions(31);
-            document.getElementById('hAccT2').innerHTML = generateOptions(23);
-            document.getElementById('mAccT2').innerHTML = generateOptions(59);
-            document.getElementById('sAccT2').innerHTML = generateOptions(59);              
-            document.getElementById('dIniz2').innerHTML = generateOptions(31);
-            document.getElementById('hIniz2').innerHTML = generateOptions(23);
-            document.getElementById('mIniz2').innerHTML = generateOptions(59);
-            document.getElementById('sIniz2').innerHTML = generateOptions(59);
-        }        
+		// Funzione per generare le opzioni delle select con precisione specifica
+		function generateOptions(maxValue, step, precision) {
+			let options = '';
+			for (let i = 0; i <= maxValue / step; i++) {
+				let value = (i * step).toFixed(precision); // Calcola il valore con la precisione specificata
+				options += `<option value="${value}">${value}</option>`;
+			}
+			return options;
+		}
+		
+		// Funzione per popolare tutte le select con precisione e incremento specifici
+		function populateSelects() {
+			// Definire configurazioni specifiche per ogni campo
+			const configurations = {
+				centroTecnologico: { maxValue: 50, step: 0.1, precision: 1 },
+				sopravvissutiCentroTecnologico: { maxValue: 100, step: 0.1, precision: 0 },
+				tecnologie: { maxValue: 100, step: 0.1, precision: 1 },
+				Vip: { maxValue: 50, step: 0.1, precision: 0 },
+				Ra: { maxValue: 50, step: 0.1, precision: 1 },
+				dAccT: { maxValue: 31, step: 1, precision: 0 },
+				hAccT: { maxValue: 23, step: 1, precision: 0 },
+				mAccT: { maxValue: 59, step: 1, precision: 0 },
+				sAccT: { maxValue: 59, step: 1, precision: 0 },
+				dIniz: { maxValue: 31, step: 1, precision: 0 },
+				hIniz: { maxValue: 23, step: 1, precision: 0 },
+				mIniz: { maxValue: 59, step: 1, precision: 0 },
+				sIniz: { maxValue: 59, step: 1, precision: 0 },
+				tecnologie2: { maxValue: 100, step: 0.1, precision: 1 },
+				Vip2: { maxValue: 50, step: 0.1, precision: 1 },
+				Ra2: { maxValue: 50, step: 0.1, precision: 1 },
+				dAccT2: { maxValue: 31, step: 1, precision: 0 },
+				hAccT2: { maxValue: 23, step: 1, precision: 0 },
+				mAccT2: { maxValue: 59, step: 1, precision: 0 },
+				sAccT2: { maxValue: 59, step: 1, precision: 0 },
+				dIniz2: { maxValue: 31, step: 1, precision: 0 },
+				hIniz2: { maxValue: 23, step: 1, precision: 0 },
+				mIniz2: { maxValue: 59, step: 1, precision: 0 },
+				sIniz2: { maxValue: 59, step: 1, precision: 0 }
+			};
+		
+			// Popolare le select usando le configurazioni specifiche
+			for (const [id, config] of Object.entries(configurations)) {
+				document.getElementById(id).innerHTML = generateOptions(config.maxValue, config.step, config.precision);
+			}
+		}
       
         // Funzione per il calcolo del tempo con i boost
         function calculateTime(ministro, dAccT, hAccT, mAccT, sAccT, dIniz, hIniz, mIniz, sIniz, centroTecnologico, sopravvissutiCentroTecnologico, tecnologie, Vip, Ra) {
