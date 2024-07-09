@@ -148,6 +148,13 @@
                 <input type="checkbox" id="ministroScienza">
             </div>
             <div class="form-group">
+                <label for="dAccT">Tempo di accelerazione gratuito:</label>
+                <select id="dAccT"></select>
+                <select id="hAccT"></select>
+                <select id="mAccT"></select>
+                <select id="sAccT"></select>                
+            </div>            
+            <div class="form-group">
                 <label for="dIniz">Orario originale:</label>
                 <select id="dIniz"></select>
                 <select id="hIniz"></select>
@@ -183,6 +190,13 @@
                 <input type="checkbox" id="ministroEdilizia">
             </div>
             <div class="form-group">
+                <label for="dAccT2">Tempo di accelerazione gratuito:</label>
+                <select id="dAccT2"></select>
+                <select id="hAccT2"></select>
+                <select id="mAccT2"></select>
+                <select id="sAccT2"></select>                
+            </div>                 
+            <div class="form-group">
                 <label for="dIniz2">Orario originale:</label>
                 <select id="dIniz2"></select>
                 <select id="hIniz2"></select>
@@ -213,6 +227,10 @@
             document.getElementById('tecnologie').innerHTML = generateOptions(100);
             document.getElementById('Vip').innerHTML = generateOptions(50);
             document.getElementById('Ra').innerHTML = generateOptions(50);
+            document.getElementById('dAccT').innerHTML = generateOptions(31);
+            document.getElementById('hAccT').innerHTML = generateOptions(23);
+            document.getElementById('mAccT').innerHTML = generateOptions(59);
+            document.getElementById('sAccT').innerHTML = generateOptions(59);            
             document.getElementById('dIniz').innerHTML = generateOptions(31);
             document.getElementById('hIniz').innerHTML = generateOptions(23);
             document.getElementById('mIniz').innerHTML = generateOptions(59);
@@ -221,6 +239,10 @@
             document.getElementById('tecnologie2').innerHTML = generateOptions(100);
             document.getElementById('Vip2').innerHTML = generateOptions(50);
             document.getElementById('Ra2').innerHTML = generateOptions(50);
+            document.getElementById('dAccT2').innerHTML = generateOptions(31);
+            document.getElementById('hAccT2').innerHTML = generateOptions(23);
+            document.getElementById('mAccT2').innerHTML = generateOptions(59);
+            document.getElementById('sAccT2').innerHTML = generateOptions(59);              
             document.getElementById('dIniz2').innerHTML = generateOptions(31);
             document.getElementById('hIniz2').innerHTML = generateOptions(23);
             document.getElementById('mIniz2').innerHTML = generateOptions(59);
@@ -228,29 +250,39 @@
         }        
       
         // Funzione per il calcolo del tempo con i boost
-        function calculateTime(ministro, dIniz, hIniz, mIniz, sIniz, centroTecnologico, sopravvissutiCentroTecnologico, tecnologie, Vip, Ra) {
-            let V = parseFloat(centroTecnologico) || 0; // Modifica per utilizzare il valore di centroTecnologico
-            let S = parseFloat(sopravvissutiCentroTecnologico) || 0; // Modifica per utilizzare il valore di sopravvissutiCentroTecnologico
-            let R = parseFloat(tecnologie) || 0; // Modifica per utilizzare il valore di tecnologie
-            let VipValue = parseFloat(Vip) || 0; // Modifica per utilizzare il valore di Vip
-            let RaValue = parseFloat(Ra) || 0; // Modifica per utilizzare il valore di Ra
+        function calculateTime(ministro, dAccT, hAccT, mAccT, sAccT, dIniz, hIniz, mIniz, sIniz, centroTecnologico, sopravvissutiCentroTecnologico, tecnologie, Vip, Ra) {
+            let V = parseFloat(centroTecnologico) || 0;
+            let S = parseFloat(sopravvissutiCentroTecnologico) || 0;
+            let R = parseFloat(tecnologie) || 0;
+            let VipValue = parseFloat(Vip) || 0;
+            let RaValue = parseFloat(Ra) || 0;
 
-            let vTot = 100 + V + S + R + VipValue + RaValue + (ministro ? 50 : 0);
+            let vTot = 100 + V + S + R + VipValue + RaValue + (ministro ? 60 : 0);
 
             let mTmp = (dIniz * 24 * 60) + (hIniz * 60) + mIniz + (sIniz / 60);
             let mTmp2 = mTmp * 100 / vTot;
 
-            let dTot = mTmp2 / 60 / 24;
-            let dFin = Math.floor(dTot);
+            // Convertire i minuti totali in giorni, ore, minuti, secondi
+            let totalSeconds = mTmp2 * 60;
 
-            let hTot = mTmp2 / 60;
-            let hFin = Math.floor(hTot) - dFin * 24;
+            // Sottrarre il tempo di accelerazione gratuita in secondi
+            let accSeconds = ((dAccT * 24 * 60 * 60) + (hAccT * 60 * 60) + (mAccT * 60) + sAccT);
+            totalSeconds -= accSeconds;
 
-            let mTot = mTmp2;
-            let mFin = Math.floor(mTot) - dFin * 24 * 60 - hFin * 60;
+            if (totalSeconds < 0) {
+                return "Tempo di accelerazione maggiore del tempo iniziale";
+            }
 
-            let sTot = mTmp2 * 60;
-            let sFin = Math.floor(sTot) - dFin * 24 * 60 * 60 - hFin * 60 * 60 - mFin * 60;
+            let dFin = Math.floor(totalSeconds / (24 * 60 * 60));
+            totalSeconds %= (24 * 60 * 60);
+
+            let hFin = Math.floor(totalSeconds / (60 * 60));
+            totalSeconds %= (60 * 60);
+
+            let mFin = Math.floor(totalSeconds / 60);
+            totalSeconds %= 60;
+
+            let sFin = Math.floor(totalSeconds);
 
             return `${dFin}d ${hFin}h ${mFin}m ${sFin}s`;
         }
@@ -263,6 +295,10 @@
             localStorage.setItem('Vip', document.getElementById('Vip').value);
             localStorage.setItem('Ra', document.getElementById('Ra').value);
             localStorage.setItem('ministroScienza', document.getElementById('ministroScienza').checked ? 'true' : 'false');
+            localStorage.setItem('dAccT', document.getElementById('dAccT').value);
+            localStorage.setItem('hAccT', document.getElementById('hAccT').value);
+            localStorage.setItem('mAccT', document.getElementById('mAccT').value);
+            localStorage.setItem('sAccT', document.getElementById('sAccT').value);            
             localStorage.setItem('dIniz', document.getElementById('dIniz').value);
             localStorage.setItem('hIniz', document.getElementById('hIniz').value);
             localStorage.setItem('mIniz', document.getElementById('mIniz').value);
@@ -277,6 +313,10 @@
             document.getElementById('Vip').value = localStorage.getItem('Vip') || '';
             document.getElementById('Ra').value = localStorage.getItem('Ra') || '';
             document.getElementById('ministroScienza').checked = localStorage.getItem('ministroScienza') === 'true';
+            document.getElementById('dAccT').value = localStorage.getItem('dAccT') || '';
+            document.getElementById('hAccT').value = localStorage.getItem('hAccT') || '';
+            document.getElementById('mAccT').value = localStorage.getItem('mAccT') || '';
+            document.getElementById('sAccT').value = localStorage.getItem('sAccT') || '';
             document.getElementById('dIniz').value = localStorage.getItem('dIniz') || '';
             document.getElementById('hIniz').value = localStorage.getItem('hIniz') || '';
             document.getElementById('mIniz').value = localStorage.getItem('mIniz') || '';
@@ -292,13 +332,17 @@
             let tecnologie = parseInt(document.getElementById('tecnologie').value) || 0;
             let Vip = parseInt(document.getElementById('Vip').value) || 0;
             let Ra = parseInt(document.getElementById('Ra').value) || 0;
+            let dAccT = parseInt(document.getElementById('dAccT').value) || 0;
+            let hAccT = parseInt(document.getElementById('hAccT').value) || 0;
+            let mAccT = parseInt(document.getElementById('mAccT').value) || 0;
+            let sAccT = parseInt(document.getElementById('sAccT').value) || 0;
             let dIniz = parseInt(document.getElementById('dIniz').value) || 0;
             let hIniz = parseInt(document.getElementById('hIniz').value) || 0;
             let mIniz = parseInt(document.getElementById('mIniz').value) || 0;
             let sIniz = parseInt(document.getElementById('sIniz').value) || 0;
             let ministroEnabled = document.getElementById('ministroScienza').checked;
 
-            let result = calculateTime(ministroEnabled, dIniz, hIniz, mIniz, sIniz, centroTecnologico, sopravvissutiCentroTecnologico, tecnologie, Vip, Ra);
+            let result = calculateTime(ministroEnabled, dAccT, hAccT, mAccT, sAccT, dIniz, hIniz, mIniz, sIniz, centroTecnologico, sopravvissutiCentroTecnologico, tecnologie, Vip, Ra);
 
             document.getElementById('result').textContent = result;
         }
@@ -309,6 +353,10 @@
             localStorage.setItem('Vip2', document.getElementById('Vip2').value);
             localStorage.setItem('Ra2', document.getElementById('Ra2').value);
             localStorage.setItem('ministroEdilizia', document.getElementById('ministroEdilizia').checked ? 'true' : 'false');
+            localStorage.setItem('dAccT2', document.getElementById('dAccT2').value);
+            localStorage.setItem('hAccT2', document.getElementById('hAccT2').value);
+            localStorage.setItem('mAccT2', document.getElementById('mAccT2').value);
+            localStorage.setItem('sAccT2', document.getElementById('sAccT2').value);                        
             localStorage.setItem('dIniz2', document.getElementById('dIniz2').value);
             localStorage.setItem('hIniz2', document.getElementById('hIniz2').value);
             localStorage.setItem('mIniz2', document.getElementById('mIniz2').value);
@@ -321,6 +369,10 @@
             document.getElementById('Vip2').value = localStorage.getItem('Vip2') || '';
             document.getElementById('Ra2').value = localStorage.getItem('Ra2') || '';
             document.getElementById('ministroEdilizia').checked = localStorage.getItem('ministroEdilizia') === 'true';
+            document.getElementById('dAccT2').value = localStorage.getItem('dAccT2') || '';
+            document.getElementById('hAccT2').value = localStorage.getItem('hAccT2') || '';
+            document.getElementById('mAccT2').value = localStorage.getItem('mAccT2') || '';
+            document.getElementById('sAccT2').value = localStorage.getItem('sAccT2') || '';
             document.getElementById('dIniz2').value = localStorage.getItem('dIniz2') || '';
             document.getElementById('hIniz2').value = localStorage.getItem('hIniz2') || '';
             document.getElementById('mIniz2').value = localStorage.getItem('mIniz2') || '';
@@ -334,13 +386,17 @@
             let tecnologie2 = parseInt(document.getElementById('tecnologie2').value) || 0;
             let Vip2 = parseInt(document.getElementById('Vip2').value) || 0;
             let Ra2 = parseInt(document.getElementById('Ra2').value) || 0;
+            let dAccT2 = parseInt(document.getElementById('dAccT2').value) || 0;
+            let hAccT2 = parseInt(document.getElementById('hAccT2').value) || 0;
+            let mAccT2 = parseInt(document.getElementById('mAccT2').value) || 0;
+            let sAccT2 = parseInt(document.getElementById('sAccT2').value) || 0;            
             let dIniz2 = parseInt(document.getElementById('dIniz2').value) || 0;
             let hIniz2 = parseInt(document.getElementById('hIniz2').value) || 0;
             let mIniz2 = parseInt(document.getElementById('mIniz2').value) || 0;
             let sIniz2 = parseInt(document.getElementById('sIniz2').value) || 0;
             let ministroEnabled2 = document.getElementById('ministroEdilizia').checked;
 
-            let result = calculateTime(ministroEnabled2, dIniz2, hIniz2, mIniz2, sIniz2, 0, 0, tecnologie2, Vip2, Ra2);
+            let result = calculateTime(ministroEnabled2, dAccT2, hAccT2, mAccT2, sAccT2, dIniz2, hIniz2, mIniz2, sIniz2, 0, 0, tecnologie2, Vip2, Ra2);
 
             document.getElementById('result2').textContent = result;
         }
