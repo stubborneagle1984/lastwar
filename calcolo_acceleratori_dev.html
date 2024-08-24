@@ -144,7 +144,7 @@
               <span class="percent-label">%</span>
             </div>
             <div class="form-group">
-                <label for="ministroScienza">Ministro della scienza (+60%):</label>
+                <label for="ministroScienza">Ministro della scienza (+50%):</label>
                 <input type="checkbox" id="ministroScienza">
             </div>
             <div class="form-group">
@@ -187,7 +187,7 @@
               <span class="percent-label">%</span>
             </div>
             <div class="form-group">
-                <label for="ministroEdilizia">Ministro dell'edilizia (+60%):</label>
+                <label for="ministroEdilizia">Ministro dell'edilizia (+50%):</label>
                 <input type="checkbox" id="ministroEdilizia">
             </div>
             <div class="form-group">
@@ -283,7 +283,7 @@
             let VipValue = parseFloat(Vip) || 0;
             let RaValue = parseFloat(Ra) || 0;
 
-            let vTot = 100 + V + S + R + VipValue + RaValue + (ministro ? 60 : 0);
+            let vTot = 100 + V + S + R + VipValue + RaValue + (ministro ? 50 : 0);
 
             let mTmp = (dIniz * 24 * 60) + (hIniz * 60) + mIniz + (sIniz / 60);
             let mTmp2 = mTmp * 100 / vTot;
